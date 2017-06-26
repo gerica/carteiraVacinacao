@@ -6,15 +6,13 @@ import * as SessionActions from '../session/SessionState';
 
 const mapStateToProps = (reducer) => {
     const session = reducer.get('session').toJS();
-    const { user, message } = session;
-    return { user, message };
+    const { message } = session;
+    return { message };
 };
 
-const init = dispatch => {
-    return {
-        navigate: bindActionCreators(NavigationActions.navigate, dispatch),
-        actions: bindActionCreators(SessionActions, dispatch)
-    };
-};
+const init = dispatch => ({
+    navigate: bindActionCreators(NavigationActions.navigate, dispatch),
+    actions: bindActionCreators(SessionActions, dispatch)
+});
 
 export default connect(mapStateToProps, init)(HomeView);

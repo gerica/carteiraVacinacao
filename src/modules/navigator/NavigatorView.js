@@ -2,13 +2,15 @@ import React from 'react';
 import { View } from 'react-native';
 import { DrawerNavigator, DrawerItems } from 'react-navigation';
 import SignupViewContainer from '../signup/SignupViewContainer';
-import HomeDisconnViewContainer from '../home/HomeDisconnViewContainer';
+import HomeViewContainer from '../home/HomeViewContainer';
 import LoginViewContainer from '../login/LoginViewContainer';
+import NovoBebeViewContainer from '../novoBebe/NovoBebeViewContainer';
 
 export const AppNavigator = DrawerNavigator({
-  Home: { screen: HomeDisconnViewContainer },
+  Home: { screen: HomeViewContainer },
   Sigunp: { screen: SignupViewContainer },
-  Login: { screen: LoginViewContainer }
+  Login: { screen: LoginViewContainer },
+  NovoBebe: { screen: NovoBebeViewContainer }
 }, {
     contentComponent: (props) => (
       <View style={styles.container}>

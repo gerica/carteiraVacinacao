@@ -33,7 +33,7 @@ const ApplicationStyles = {
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            borderBottomWidth: 0
+            borderBottomWidth: 1
         },
         rowCenter: {
             flexDirection: 'row',

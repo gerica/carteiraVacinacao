@@ -1,4 +1,5 @@
 const colors = {
+    headerBackgroud: '#7194ba',
     background: '#7986cb',
     logo: '#8befbf',
     borderLogo: '#59c1df',

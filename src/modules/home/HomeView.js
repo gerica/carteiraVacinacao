@@ -1,140 +1,121 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableHighlight } from 'react-native';
+import I18n from 'react-native-i18n';
+import { View, Text, Image, Dimensions, ScrollView } from 'react-native';
+import IconEntypo from 'react-native-vector-icons/Entypo';
+import {
+    Button,
+    Icon,
+    StyleProvider,
+    Container,
+    Content,
+    Footer,
+    FooterTab,
+    Left,
+    Header,
+    Body,
+    Title,
+    Grid,
+    Col
+} from 'native-base';
+import getTheme from '../../../native-base-theme/components';
+import material from '../../../native-base-theme/variables/material';
+import { ApplicationStyles, Colors, Fonts } from '../../components/Themes';
+import pt from '../../i18n/locales/pt-BR';
 
-import { Card, CardSection, Button, Container, Header } from '../../components/common';
+I18n.fallbacks = true;
+I18n.defaultLocale = 'pt';
+I18n.locale = 'pt-BR';
+
+I18n.translations = {
+    pt
+};
+
+const imgBackGround = require('../../../resources/img/elefante.jpg');
+
+const { height, width } = Dimensions.get('window');
 
 class HomeView extends Component {
+
     static navigationOptions = {
         drawerLabel: 'Home',
         drawerIcon: () => (
-            <Image
-                source={require('../../../images/icons/settings_menu.png')}
-            />
+            <View style={ApplicationStyles.menu.circleMenu}>
+                <IconEntypo
+                    name="home"
+                    size={13} color={Colors.logo}
+                />
+            </View>
         ),
-    };    
+    };
 
-    renderButtonSignup() {
-        const hastUsername = this.props.user !== undefined && this.props.user !== null;
-        if (hastUsername) {
-            return null;
-        }
-
+    onNovo() {
         const { navigate } = this.props.navigation;
-        return (
-            <CardSection>
-                < Button onPress={() => navigate('Login')}> Login </Button >
-                < Button onPress={() => navigate('Sigunp')}> Signup </Button >
-            </CardSection>
-        );
+        navigate('NovoBebe');
     }
-
+    onLogin() {
+        const { navigate } = this.props.navigation;
+        navigate('Login');
+    }
     render() {
-        const { user } = this.props;
+        // console.log(getTheme());
         return (
-            <Container>
-                <Card>
-                    <Header navigation={this.props.navigation} title='Carteira' balance='23.231' />
-                    <CardSection style={styles.customNome}>
-                        <Text style={styles.textName}>{user.name}</Text>
-                    </CardSection>
-
-                    <CardSection style={styles.customUsername}>
-                        <View style={{ flexDirection: 'row' }} >
-                            <Image
-                                source={require('../../../images/home/HOME_DESCONECTADO_A/Logo text wihive.png')}
-                                style={{ marginRight: 5 }}
-                            />
-                            <Text style={styles.textUsername}>{user.username}</Text>
-                        </View>
-                    </CardSection>
-                    <CardSection style={styles.customIcon}>
-                        <Image
-                            source={require('../../../images/Wallet/NEO symbol@2x.png')}
-                        />
-                    </CardSection>
-                    <CardSection style={styles.customValor}>
-                        <Text style={styles.textValor}>23.352</Text>
-                    </CardSection>
-                    <CardSection style={styles.customIcon}>
-                        <Image
-                            source={require('../../../images/Wallet/IconeBanco@2x@1x.png')}
-                        />
-                    </CardSection>
-                    <CardSection style={styles.customIcon}>
-                        <Image
-                            source={require('../../../images/Wallet/Win button@1x.png')}
-                        />
-                    </CardSection>
-                    <CardSection style={styles.customIcon}>
-                        <Image
-                            source={require('../../../images/Offers/Neoron logo@3x.png')}
-                        />
-                    </CardSection>
-                    <CardSection style={styles.customIcon}>
-                        <Image
-                            source={require('../../../images/Offers/Neoron logo@3x.png')}
-                        />
-                    </CardSection>
-                    <CardSection style={styles.customIcon}>
-                        <Image
-                            source={require('../../../images/home/Botao Roxo Fundo.png')}
-                            style={{ width: 150, height: 50 }}
-                        />
-                    </CardSection>
-
-                </Card>
-            </Container >
+            <ScrollView>
+                <Container>
+                    <Header style={{ backgroundColor: Colors.headerBackgroud }}>
+                        <Left>
+                            <Button
+                                transparent
+                                onPress={() =>
+                                    this.props.navigation.navigate('DrawerOpen')
+                                }
+                            >
+                                <Icon name='menu' />
+                            </Button>
+                        </Left>
+                        <Body>
+                            <Title>{I18n.t('home.title')}</Title>
+                        </Body>
+                    </Header>
+                    <Content style={{ padding: 1 }}>
+                        <Image source={imgBackGround} style={styles.image} >
+                            <Grid style={styles.grid}>
+                                <Col>
+                                    <Button rounded block style={styles.button} onPress={this.onNovo.bind(this)}>
+                                        <Text style={styles.text}>{I18n.t('home.novo')}</Text>
+                                    </Button>
+                                </Col>
+                            </Grid>
+                        </Image>
+                    </Content>
+                </Container>
+            </ScrollView>
         );
     }
 }
 
 const styles = {
-    textName: {
-        fontSize: 23,
-        color: '#FFFFFF',
-        fontFamily: 'LucidaGrande',
-        fontWeight: 'bold'
+    image: {
+        width,
+        height: height - 80,
     },
-    customNome: {
-        paddingTop: 40,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderBottomWidth: 0
+    grid: {
+        alignItems: 'flex-end',
     },
-    textUsername: {
-        fontSize: 12,
-        color: '#FFFFFF',
-        fontFamily: 'LucidaGrande',
+    button: {
+        // backgroundColor: 'transparent',
+        backgroundColor: Colors.background,
+        opacity: 0.8,
+        borderColor: Colors.bar,
+        borderWidth: 1,
+        margin: 1,
+        marginVertical: 3,
+        marginHorizontal: 10,
     },
-    customUsername: {
-        padding: 10,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderBottomWidth: 0
-    },
-    customIcon: {
-        padding: 10,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderBottomWidth: 0
-    },
-    customValor: {
-        padding: 10,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderBottomWidth: 0
-    },
-    textValor: {
-        fontSize: 28,
-        color: '#FFFFFF',
-        fontFamily: 'LucidaGrande',
-        fontWeight: 'bold'
+    text: {
+        ...Fonts.style.normal,
+        color: Colors.white,
     }
-
 };
 
 export default HomeView;
+
