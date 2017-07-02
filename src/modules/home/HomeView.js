@@ -5,7 +5,6 @@ import IconEntypo from 'react-native-vector-icons/Entypo';
 import {
     Button,
     Icon,
-    StyleProvider,
     Container,
     Content,
     Footer,
@@ -17,8 +16,6 @@ import {
     Grid,
     Col
 } from 'native-base';
-import getTheme from '../../../native-base-theme/components';
-import material from '../../../native-base-theme/variables/material';
 import { ApplicationStyles, Colors, Fonts } from '../../components/Themes';
 import pt from '../../i18n/locales/pt-BR';
 
@@ -37,6 +34,7 @@ const { height, width } = Dimensions.get('window');
 class HomeView extends Component {
 
     static navigationOptions = {
+        header: null,
         drawerLabel: 'Home',
         drawerIcon: () => (
             <View style={ApplicationStyles.menu.circleMenu}>
@@ -48,6 +46,9 @@ class HomeView extends Component {
         ),
     };
 
+    componentWillMount() {
+        this.props.actions.init();
+    }
     onNovo() {
         const { navigate } = this.props.navigation;
         navigate('NovoBebe');
@@ -56,13 +57,46 @@ class HomeView extends Component {
         const { navigate } = this.props.navigation;
         navigate('Login');
     }
+    onDashboard(bebe) {
+        const { navigate } = this.props.navigation;
+        navigate('Dashboard', { bebe });
+    }
+    renderButtonBebes() {
+        const { bebes } = this.props;
+        if (!bebes) {
+            return null;
+        }
+        console.log(bebes);
+        let count = 1;
+        const getButton = bebe => {
+            count++;
+            return (<Button
+                key={count}
+                rounded
+                block
+                style={styles.button}
+                onPress={this.onDashboard.bind(this, bebe)}
+            >
+                <Text style={styles.text}>{bebe.nome}</Text>
+            </Button>
+            );
+        };
+
+        const buttons = bebes.map(getButton);
+        // console.log(buttons);
+        return (
+            <View>
+                {buttons}
+            </View>);
+    }
     render() {
         // console.log(getTheme());
+        console.log(this.props);
         return (
             <ScrollView>
                 <Container>
                     <Header style={{ backgroundColor: Colors.headerBackgroud }}>
-                        <Left>
+                        {/*<Left>
                             <Button
                                 transparent
                                 onPress={() =>
@@ -71,7 +105,7 @@ class HomeView extends Component {
                             >
                                 <Icon name='menu' />
                             </Button>
-                        </Left>
+                        </Left>*/}
                         <Body>
                             <Title>{I18n.t('home.title')}</Title>
                         </Body>
@@ -80,6 +114,7 @@ class HomeView extends Component {
                         <Image source={imgBackGround} style={styles.image} >
                             <Grid style={styles.grid}>
                                 <Col>
+                                    {this.renderButtonBebes()}
                                     <Button rounded block style={styles.button} onPress={this.onNovo.bind(this)}>
                                         <Text style={styles.text}>{I18n.t('home.novo')}</Text>
                                     </Button>

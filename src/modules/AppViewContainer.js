@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import AppView from './AppView';
 
 const mapStateToProps = (reducer) => {
-  console.log(reducer);
+  // console.log(reducer);
   const sessionState = reducer.get('session').toJS();
   const { isReady } = sessionState;
   return { isReady };

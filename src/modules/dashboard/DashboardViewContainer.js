@@ -1,21 +1,21 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { NavigationActions } from 'react-navigation';
-import HomeView from './HomeView';
+import DashboardView from './DashboardView';
 import * as SessionActions from '../session/SessionState';
-import * as HomeActions from './HomeState';
+import * as DashboardActions from './DashboardState';
 
 const mapStateToProps = (reducer) => {
     // const session = reducer.get('session').toJS();
-    const home = reducer.get('homeState').toJS();
-    const { message, bebes } = home;
-    return { message, bebes };
+    const state = reducer.get('dashboardState').toJS();
+    const { message, bebe } = state;
+    return { message, bebe };
 };
 
 const init = dispatch => ({
     navigate: bindActionCreators(NavigationActions.navigate, dispatch),
     actionsSession: bindActionCreators(SessionActions, dispatch),
-    actions: bindActionCreators(HomeActions, dispatch)
+    actions: bindActionCreators(DashboardActions, dispatch)
 });
 
-export default connect(mapStateToProps, init)(HomeView);
+export default connect(mapStateToProps, init)(DashboardView);

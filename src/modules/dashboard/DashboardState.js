@@ -6,41 +6,39 @@ const dao = new BebeDao();
 // Initial state
 const initialState = Map({
     message: '',
-    bebes: null
+    bebe: null
 });
 
 // Actions
 const RESET = 'HomeState/RESET';
-const ATTR_BEBES = 'HomeState/ATTR_BEBES';
+const ATTR_BEBE = 'HomeState/ATTR_BEBE';
 
 // Action creators
 export function onReset() {
     return { type: RESET };
 }
 // Action creators
-export function init() {
+export function init(bebe) {
     return (dispatch) => {
         dispatch(onReset());
-        dao.find().then((value) => {
-            dispatch(attrBebes(value));
-        });
+        dispatch(attrBebe(bebe));
     };
 }
-export function attrBebes(value) {
+export function attrBebe(value) {
     return {
-        type: ATTR_BEBES,
+        type: ATTR_BEBE,
         payload: value
     };
 }
 
 // Reducer
-export default function HomeStateReducer(state = initialState, action) {
+export default function DashboradStateReducer(state = initialState, action) {
     switch (action.type) {
 
         case RESET:
             return initialState;
-        case ATTR_BEBES:
-            return state.update('bebes', () => action.payload);
+        case ATTR_BEBE:
+            return state.update('bebe', () => action.payload);
 
         default:
             return state;
