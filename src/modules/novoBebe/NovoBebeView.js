@@ -24,15 +24,16 @@ const { height, width } = Dimensions.get('window');
 class NovoBebeView extends Component {
 
     static navigationOptions = {
-        drawerLabel: 'Novo Bebe',
-        drawerIcon: () => (
-            <View style={ApplicationStyles.menu.circleMenu}>
-                <IconEntypo
-                    name="new-message"
-                    size={13} color={Colors.logo}
-                />
-            </View>
-        ),
+        header: null,
+        // drawerLabel: 'Novo Bebe',
+        // drawerIcon: () => (
+        //     <View style={ApplicationStyles.menu.circleMenu}>
+        //         <IconEntypo
+        //             name="new-message"
+        //             size={13} color={Colors.logo}
+        //         />
+        //     </View>
+        // ),
     };
 
     componentWillMount() {
@@ -61,10 +62,10 @@ class NovoBebeView extends Component {
                             <Button
                                 transparent
                                 onPress={() =>
-                                    this.props.navigation.navigate('DrawerOpen')
+                                    this.props.navigation.goBack()
                                 }
                             >
-                                <Icon name='menu' />
+                                <Icon name='ios-arrow-round-back' />
                             </Button>
                         </Left>
                         <Body>

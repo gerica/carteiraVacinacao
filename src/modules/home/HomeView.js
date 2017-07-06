@@ -35,15 +35,15 @@ class HomeView extends Component {
 
     static navigationOptions = {
         header: null,
-        drawerLabel: 'Home',
-        drawerIcon: () => (
-            <View style={ApplicationStyles.menu.circleMenu}>
-                <IconEntypo
-                    name="home"
-                    size={13} color={Colors.logo}
-                />
-            </View>
-        ),
+        // drawerLabel: 'Home',
+        // drawerIcon: () => (
+        //     <View style={ApplicationStyles.menu.circleMenu}>
+        //         <IconEntypo
+        //             name="home"
+        //             size={13} color={Colors.logo}
+        //         />
+        //     </View>
+        // ),
     };
 
     componentWillMount() {
@@ -59,7 +59,7 @@ class HomeView extends Component {
     }
     onDashboard(bebe) {
         const { navigate } = this.props.navigation;
-        navigate('Dashboard', { bebe });
+        navigate('Main', { bebe });
     }
     renderButtonBebes() {
         const { bebes } = this.props;
@@ -96,31 +96,20 @@ class HomeView extends Component {
             <ScrollView>
                 <Container>
                     <Header style={{ backgroundColor: Colors.headerBackgroud }}>
-                        {/*<Left>
-                            <Button
-                                transparent
-                                onPress={() =>
-                                    this.props.navigation.navigate('DrawerOpen')
-                                }
-                            >
-                                <Icon name='menu' />
-                            </Button>
-                        </Left>*/}
                         <Body>
                             <Title>{I18n.t('home.title')}</Title>
                         </Body>
                     </Header>
                     <Content style={{ padding: 1 }}>
-                        <Image source={imgBackGround} style={styles.image} >
-                            <Grid style={styles.grid}>
-                                <Col>
-                                    {this.renderButtonBebes()}
-                                    <Button rounded block style={styles.button} onPress={this.onNovo.bind(this)}>
-                                        <Text style={styles.text}>{I18n.t('home.novo')}</Text>
-                                    </Button>
-                                </Col>
-                            </Grid>
-                        </Image>
+                        <Image source={imgBackGround} style={styles.image} />
+                        <Grid style={styles.grid}>
+                            <Col>
+                                {this.renderButtonBebes()}
+                                <Button rounded block style={styles.button} onPress={this.onNovo.bind(this)}>
+                                    <Text style={styles.text}>{I18n.t('home.novo')}</Text>
+                                </Button>
+                            </Col>
+                        </Grid>
                     </Content>
                 </Container>
             </ScrollView>
@@ -131,14 +120,14 @@ class HomeView extends Component {
 const styles = {
     image: {
         width,
-        height: height - 80,
+        height: height / 1.5,
     },
     grid: {
         alignItems: 'flex-end',
     },
     button: {
         // backgroundColor: 'transparent',
-        backgroundColor: Colors.background,
+        backgroundColor: Colors.button,
         opacity: 0.8,
         borderColor: Colors.bar,
         borderWidth: 1,

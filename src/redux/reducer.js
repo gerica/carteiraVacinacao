@@ -6,7 +6,8 @@ import HomeStateReducer from '../modules/home/HomeState';
 import SignupStateReducer from '../modules/signup/SignupState';
 import LoginStateReducer from '../modules/login/LoginState';
 import NovoBebeStateReducer from '../modules/novoBebe/NovoBebeState';
-import DashboardStateReducer from '../modules/dashboard/DashboardState';
+import MainStateReducer from '../modules/main/MainState';
+import DashboardStateReducer from '../modules/main/dashboard/DashboardState';
 
 
 const reducers = {
@@ -26,6 +27,9 @@ const reducers = {
 
   // novo bebe states
   novoBebeState: NovoBebeStateReducer,
+
+  // dashboard states
+  mainState: MainStateReducer,
 
   // dashboard states
   dashboardState: DashboardStateReducer,

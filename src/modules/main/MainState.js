@@ -18,10 +18,9 @@ export function onReset() {
     return { type: RESET };
 }
 // Action creators
-export function init(bebe) {
+export function init() {
     return (dispatch) => {
         dispatch(onReset());
-        dispatch(attrBebe(bebe));
     };
 }
 export function attrBebe(value) {

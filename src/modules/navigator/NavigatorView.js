@@ -5,7 +5,7 @@ import SignupViewContainer from '../signup/SignupViewContainer';
 import HomeViewContainer from '../home/HomeViewContainer';
 import LoginViewContainer from '../login/LoginViewContainer';
 import NovoBebeViewContainer from '../novoBebe/NovoBebeViewContainer';
-import DashboardViewContainer from '../dashboard/DashboardViewContainer';
+import MainViewContainer from '../main/MainViewContainer';
 
 export const Drawer = DrawerNavigator({
   Home: { screen: HomeViewContainer },
@@ -39,7 +39,7 @@ const styles = {
 
 const AppNavigator = StackNavigator({
   Home: { screen: HomeViewContainer },
-  Dashboard: { screen: DashboardViewContainer },
+  Main: { screen: MainViewContainer },
   NovoBebe: { screen: NovoBebeViewContainer }
 });
 

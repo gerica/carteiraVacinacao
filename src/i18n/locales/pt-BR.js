@@ -6,5 +6,8 @@ export default {
     },
     novoBebe: {
         salvar: 'Salvar'
-    }
+    },
+    dashboard: {
+        title: 'Carteira do'
+    },
 };
