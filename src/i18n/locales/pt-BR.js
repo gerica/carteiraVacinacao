@@ -10,4 +10,7 @@ export default {
     dashboard: {
         title: 'Carteira do'
     },
+    vacina: {
+        novaVacina: 'Nova Vacina'
+    }
 };

@@ -74,10 +74,10 @@ class HomeView extends Component {
                 key={count}
                 rounded
                 block
-                style={styles.button}
+                style={ApplicationStyles.screen.buttonDefault1}
                 onPress={this.onDashboard.bind(this, bebe)}
             >
-                <Text style={styles.text}>{bebe.nome}</Text>
+                <Text style={ApplicationStyles.screen.textWhite}>{bebe.nome}</Text>
             </Button>
             );
         };
@@ -105,8 +105,8 @@ class HomeView extends Component {
                         <Grid style={styles.grid}>
                             <Col>
                                 {this.renderButtonBebes()}
-                                <Button rounded block style={styles.button} onPress={this.onNovo.bind(this)}>
-                                    <Text style={styles.text}>{I18n.t('home.novo')}</Text>
+                                <Button rounded block style={ApplicationStyles.screen.buttonDefault1} onPress={this.onNovo.bind(this)}>
+                                    <Text style={ApplicationStyles.screen.textWhite}>{I18n.t('home.novo')}</Text>
                                 </Button>
                             </Col>
                         </Grid>
@@ -125,20 +125,6 @@ const styles = {
     grid: {
         alignItems: 'flex-end',
     },
-    button: {
-        // backgroundColor: 'transparent',
-        backgroundColor: Colors.button,
-        opacity: 0.8,
-        borderColor: Colors.bar,
-        borderWidth: 1,
-        margin: 1,
-        marginVertical: 3,
-        marginHorizontal: 10,
-    },
-    text: {
-        ...Fonts.style.normal,
-        color: Colors.white,
-    }
 };
 
 export default HomeView;

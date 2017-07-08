@@ -8,6 +8,7 @@ import LoginStateReducer from '../modules/login/LoginState';
 import NovoBebeStateReducer from '../modules/novoBebe/NovoBebeState';
 import MainStateReducer from '../modules/main/MainState';
 import DashboardStateReducer from '../modules/main/dashboard/DashboardState';
+import VacinaStateReducer from '../modules/main/vacina/VacinaState';
 
 
 const reducers = {
@@ -33,6 +34,9 @@ const reducers = {
 
   // dashboard states
   dashboardState: DashboardStateReducer,
+
+  // dashboard states
+  vacinaState: VacinaStateReducer,
 
 };
 

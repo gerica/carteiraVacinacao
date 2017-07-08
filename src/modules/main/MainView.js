@@ -8,6 +8,7 @@ import {
 import { ApplicationStyles, Colors } from '../../components/Themes';
 import pt from '../../i18n/locales/pt-BR';
 import DashboardViewContainer from './dashboard/DashboardViewContainer';
+import VacinaViewContainer from './vacina/VacinaViewContainer';
 
 I18n.fallbacks = true;
 I18n.defaultLocale = 'pt';
@@ -57,9 +58,7 @@ class Dashboard extends Component {
                             <DashboardViewContainer />
                         </Tab>
                         <Tab heading={<TabHeading><Icon name="book" /></TabHeading>}>
-                            <Text>
-                                Vacina
-                            </Text>
+                            <VacinaViewContainer />
                         </Tab>
                         <Tab heading={<TabHeading><Icon name="medkit" /></TabHeading>}>
                             <Text>
