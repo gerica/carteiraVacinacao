@@ -1,9 +1,11 @@
+import { List } from 'immutable';
+
 export default class Bebe {
     nome = '';
     sobrenome = '';
     dataNascimento = '';
     sexo = '';
-    vacinas = [];
+    vacinas = new List();
 }
 
 export const MENINO = 'M';

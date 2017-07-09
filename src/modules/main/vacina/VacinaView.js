@@ -5,9 +5,11 @@ import {
     Left, Container, Content, CardItem,
     Body, Card, Thumbnail, Button
 } from 'native-base';
+import moment from 'moment';
 import { ApplicationStyles } from '../../../components/Themes';
 import pt from '../../../i18n/locales/pt-BR';
 import Imagens from '../../../utils/image/Imagens';
+import * as vacinaServices from '../../../services/vacina/VacinaService';
 
 I18n.fallbacks = true;
 I18n.defaultLocale = 'pt';
@@ -20,32 +22,36 @@ I18n.translations = {
 class VacinaView extends Component {
 
     onNovo() {
-
     }
 
     imagens = new Imagens();
     render() {
+        const proximaVacina = vacinaServices.getProxima(this.props.bebe);
+        console.log(proximaVacina);
         return (
             <Container style={ApplicationStyles.screen.mainContainer}>
                 <Content>
-                    <Card>
-                        <CardItem>
-                            <Left>
-                                <Thumbnail source={this.imagens.getKitSaude3().getImgRandom()} />
-                                <Body>
-                                    <Text>Próxima Vacina</Text>
-                                    <Text>Tetravalente (DTP + Hib)</Text>
-                                    <Text note>April 15, 2016</Text>
-                                </Body>
-                            </Left>
-                        </CardItem>
-                    </Card>
+                    {proximaVacina === undefined ? null :
+                        <Card>
+                            <CardItem>
+                                <Left>
+                                    <Thumbnail source={this.imagens.getKitSaude3().injecao} />
+                                    <Body>
+                                        <Text>Próxima Vacina</Text>
+                                        <Text>{proximaVacina.nome}</Text>
+                                        <Text note>{moment(proximaVacina.dataPrevista).format('DD-MM-YYYY')}</Text>
+                                    </Body>
+                                </Left>
+                            </CardItem>
+                        </Card>
+                    }
                     <Card>
                         <CardItem header>
                             <Text>Hitórico</Text>
                         </CardItem>
                         <CardItem>
                             <Body>
+                                <Text>{this.props.bebe.nome}</Text>
                                 <Text>BCG-ID (1) - 14/07/2015</Text>
                                 <Text>Hepatite B (2) - 14/07/2015</Text>
                             </Body>

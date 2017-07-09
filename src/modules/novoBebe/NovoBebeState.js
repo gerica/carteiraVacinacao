@@ -76,7 +76,7 @@ export function save(bebe, navigate) {
         dispatch(attrOnLoading(true));
         dao.find().then((value) => {
             let list;
-            console.log(value);
+            
             if (!value) {
                 list = List();
             } else {
@@ -87,9 +87,10 @@ export function save(bebe, navigate) {
             novoBebe.dataNascimento = bebe.dataNascimento;
             novoBebe.sexo = bebe.sexo;
             novoBebe.sobrenome = bebe.sobrenome;
-            novoBebe.vacinas = vacinaService.criarListaInicial();
+            const vacinas = vacinaService.criarListaInicial();
+            novoBebe.vacinas = List(vacinaService.calcProximaData(bebe, vacinas));
             const newList = list.push(novoBebe);
-            console.log(newList);
+            // console.log(newList);
             dao.save(newList).then(() => navigate('Home'));
         });
         // dispatch(onReset());

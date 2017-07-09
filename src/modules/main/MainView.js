@@ -28,6 +28,7 @@ class Dashboard extends Component {
         if (bebe) {
             this.props.actions.attrBebe(bebe);
             this.props.actionsDashboard.attrBebe(bebe);
+            this.props.actionsVacina.attrBebe(bebe);
         }
     }
     render() {

@@ -23,7 +23,7 @@ const { height, width } = Dimensions.get('window');
 class Dashboard extends Component {
 
     imagens = new Imagens();
-    render() {
+    render() {        
         const card = cardInfo.getRandomCard();
         return (
             <Container style={ApplicationStyles.screen.mainContainer}>
