@@ -1,6 +1,16 @@
 export default {
     home: {
-        title: 'Pesquisa App',
+        title: 'Carteira de Saúde',
+        novo: 'Novo Bebe',
         footer: 'App',
+    },
+    novoBebe: {
+        salvar: 'Salvar'
+    },
+    dashboard: {
+        title: 'Carteira do'
+    },
+    vacina: {
+        novaVacina: 'Nova Vacina'
     }
 };

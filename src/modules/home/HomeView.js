@@ -1,140 +1,109 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableHighlight } from 'react-native';
+import I18n from 'react-native-i18n';
+import { View, Text, Image, Dimensions, ScrollView } from 'react-native';
+// import IconEntypo from 'react-native-vector-icons/Entypo';
+import {
+    Button, Container, Content, Header, Body,
+    Title, Grid, Col
+} from 'native-base';
+import { ApplicationStyles, Colors } from '../../components/Themes';
+import pt from '../../i18n/locales/pt-BR';
+import Imagens from '../../utils/image/Imagens';
 
-import { Card, CardSection, Button, Container, Header } from '../../components/common';
+I18n.fallbacks = true;
+I18n.defaultLocale = 'pt';
+I18n.locale = 'pt-BR';
+
+I18n.translations = {
+    pt
+};
+
+
+const { height, width } = Dimensions.get('window');
 
 class HomeView extends Component {
-    static navigationOptions = {
-        drawerLabel: 'Home',
-        drawerIcon: () => (
-            <Image
-                source={require('../../../images/icons/settings_menu.png')}
-            />
-        ),
-    };    
 
-    renderButtonSignup() {
-        const hastUsername = this.props.user !== undefined && this.props.user !== null;
-        if (hastUsername) {
+    static navigationOptions = {
+        header: null,
+    };
+    componentWillMount() {
+        this.props.actions.init();        
+    }
+    onNovo() {
+        const { navigate } = this.props.navigation;
+        navigate('NovoBebe');
+    }
+    onLogin() {
+        const { navigate } = this.props.navigation;
+        navigate('Login');
+    }
+    onDashboard(bebe) {
+        const { navigate } = this.props.navigation;
+        navigate('Main', { bebe });
+    }
+    imagens = new Imagens();
+    renderButtonBebes() {
+        const { bebes } = this.props;
+        if (!bebes) {
             return null;
         }
+        let count = 1;
+        const getButton = bebe => {
+            count++;
+            return (<Button
+                key={count}
+                rounded
+                block
+                style={ApplicationStyles.screen.buttonDefault1}
+                onPress={this.onDashboard.bind(this, bebe)}
+            >
+                <Text style={ApplicationStyles.screen.textWhite}>{bebe.nome}</Text>
+            </Button>
+            );
+        };
 
-        const { navigate } = this.props.navigation;
+        const buttons = bebes.map(getButton);
         return (
-            <CardSection>
-                < Button onPress={() => navigate('Login')}> Login </Button >
-                < Button onPress={() => navigate('Sigunp')}> Signup </Button >
-            </CardSection>
-        );
+            <View>
+                {buttons}
+            </View>);
     }
-
     render() {
-        const { user } = this.props;
+        console.log(this.props);
         return (
-            <Container>
-                <Card>
-                    <Header navigation={this.props.navigation} title='Carteira' balance='23.231' />
-                    <CardSection style={styles.customNome}>
-                        <Text style={styles.textName}>{user.name}</Text>
-                    </CardSection>
-
-                    <CardSection style={styles.customUsername}>
-                        <View style={{ flexDirection: 'row' }} >
-                            <Image
-                                source={require('../../../images/home/HOME_DESCONECTADO_A/Logo text wihive.png')}
-                                style={{ marginRight: 5 }}
-                            />
-                            <Text style={styles.textUsername}>{user.username}</Text>
-                        </View>
-                    </CardSection>
-                    <CardSection style={styles.customIcon}>
-                        <Image
-                            source={require('../../../images/Wallet/NEO symbol@2x.png')}
-                        />
-                    </CardSection>
-                    <CardSection style={styles.customValor}>
-                        <Text style={styles.textValor}>23.352</Text>
-                    </CardSection>
-                    <CardSection style={styles.customIcon}>
-                        <Image
-                            source={require('../../../images/Wallet/IconeBanco@2x@1x.png')}
-                        />
-                    </CardSection>
-                    <CardSection style={styles.customIcon}>
-                        <Image
-                            source={require('../../../images/Wallet/Win button@1x.png')}
-                        />
-                    </CardSection>
-                    <CardSection style={styles.customIcon}>
-                        <Image
-                            source={require('../../../images/Offers/Neoron logo@3x.png')}
-                        />
-                    </CardSection>
-                    <CardSection style={styles.customIcon}>
-                        <Image
-                            source={require('../../../images/Offers/Neoron logo@3x.png')}
-                        />
-                    </CardSection>
-                    <CardSection style={styles.customIcon}>
-                        <Image
-                            source={require('../../../images/home/Botao Roxo Fundo.png')}
-                            style={{ width: 150, height: 50 }}
-                        />
-                    </CardSection>
-
-                </Card>
-            </Container >
+            <ScrollView>
+                <Container>
+                    <Header style={{ backgroundColor: Colors.headerBackgroud }}>
+                        <Body>
+                            <Title>{I18n.t('home.title')}</Title>
+                        </Body>
+                    </Header>
+                    <Content style={{ padding: 1 }}>
+                        <Image source={this.imagens.elefante} style={styles.image} />
+                        <Grid style={styles.grid}>
+                            <Col>
+                                {this.renderButtonBebes()}
+                                <Button rounded block style={ApplicationStyles.screen.buttonDefault1} onPress={this.onNovo.bind(this)}>
+                                    <Text style={ApplicationStyles.screen.textWhite}>{I18n.t('home.novo')}</Text>
+                                </Button>
+                            </Col>
+                        </Grid>
+                    </Content>
+                </Container>
+            </ScrollView>
         );
     }
 }
 
 const styles = {
-    textName: {
-        fontSize: 23,
-        color: '#FFFFFF',
-        fontFamily: 'LucidaGrande',
-        fontWeight: 'bold'
+    image: {
+        width,
+        height: height / 1.5,
     },
-    customNome: {
-        paddingTop: 40,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderBottomWidth: 0
+    grid: {
+        alignItems: 'flex-end',
     },
-    textUsername: {
-        fontSize: 12,
-        color: '#FFFFFF',
-        fontFamily: 'LucidaGrande',
-    },
-    customUsername: {
-        padding: 10,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderBottomWidth: 0
-    },
-    customIcon: {
-        padding: 10,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderBottomWidth: 0
-    },
-    customValor: {
-        padding: 10,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderBottomWidth: 0
-    },
-    textValor: {
-        fontSize: 28,
-        color: '#FFFFFF',
-        fontFamily: 'LucidaGrande',
-        fontWeight: 'bold'
-    }
-
 };
 
 export default HomeView;
+

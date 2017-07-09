@@ -5,6 +5,10 @@ import SessionStateReducer, { RESET_STATE } from '../modules/session/SessionStat
 import HomeStateReducer from '../modules/home/HomeState';
 import SignupStateReducer from '../modules/signup/SignupState';
 import LoginStateReducer from '../modules/login/LoginState';
+import NovoBebeStateReducer from '../modules/novoBebe/NovoBebeState';
+import MainStateReducer from '../modules/main/MainState';
+import DashboardStateReducer from '../modules/main/dashboard/DashboardState';
+import VacinaStateReducer from '../modules/main/vacina/VacinaState';
 
 
 const reducers = {
@@ -21,6 +25,18 @@ const reducers = {
 
   // Login states
   loginState: LoginStateReducer,
+
+  // novo bebe states
+  novoBebeState: NovoBebeStateReducer,
+
+  // dashboard states
+  mainState: MainStateReducer,
+
+  // dashboard states
+  dashboardState: DashboardStateReducer,
+
+  // dashboard states
+  vacinaState: VacinaStateReducer,
 
 };
 

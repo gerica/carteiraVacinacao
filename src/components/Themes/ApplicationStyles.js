@@ -33,7 +33,7 @@ const ApplicationStyles = {
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            borderBottomWidth: 0
+            borderBottomWidth: 1
         },
         rowCenter: {
             flexDirection: 'row',
@@ -74,6 +74,21 @@ const ApplicationStyles = {
             alignSelf: 'center',
             color: '#CCFF33'
         },
+        buttonDefault1: {
+            // backgroundColor: 'transparent',
+            backgroundColor: Colors.button,
+            opacity: 0.8,
+            borderColor: Colors.bar,
+            borderWidth: 1,
+            margin: 1,
+            marginVertical: 3,
+            marginHorizontal: 10,
+        },
+        textWhite: {
+            ...Fonts.style.normal,
+            color: Colors.white,
+        }
+
     },
     header: {
         circleLogo: {
@@ -104,6 +119,7 @@ const ApplicationStyles = {
             color: Colors.headerTitle,
             fontWeight: 'bold'
         },
+
     },
     menu: {
         circleMenu: {
