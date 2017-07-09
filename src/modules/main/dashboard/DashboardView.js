@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import I18n from 'react-native-i18n';
-import { Text, Image } from 'react-native';
+import { Text, Image, Dimensions } from 'react-native';
 import {
     Button, Icon, Left, Container, Content, CardItem,
     Body, Card, Thumbnail
 } from 'native-base';
 import { ApplicationStyles } from '../../../components/Themes';
 import pt from '../../../i18n/locales/pt-BR';
-import { getImgRandom } from '../../../utils/ImagensRandom';
+import Imagens from '../../../utils/image/Imagens';
+import * as cardInfo from '../../../services/card/CardInfo';
 
 I18n.fallbacks = true;
 I18n.defaultLocale = 'pt';
@@ -17,40 +18,31 @@ I18n.translations = {
     pt
 };
 
+const { height, width } = Dimensions.get('window');
 
 class Dashboard extends Component {
 
-    // getImgRandom() {
-    //     const max = imgRandom.length - 1;
-    //     const min = 0;
-    //     const range = max - min;
-
-    //     const i = Math.floor(Math.random() * (range + 1)) + min;
-    //     return imgRandom[i];
-    // }
-
+    imagens = new Imagens();
     render() {
+        const card = cardInfo.getRandomCard();
         return (
             <Container style={ApplicationStyles.screen.mainContainer}>
                 <Content>
                     <Card>
                         <CardItem>
                             <Left>
-                                <Thumbnail source={getImgRandom()} />
+                                <Thumbnail source={this.imagens.getKitSaude3().getForIndex(card.thumbnail)} />
                                 <Body>
-                                    <Text>NativeBase</Text>
-                                    <Text note>April 15, 2016</Text>
+                                    <Text>{card.title}</Text>
                                 </Body>
                             </Left>
                         </CardItem>
                         <CardItem>
                             <Body>
-                                <Image source={getImgRandom()} style={{ height: 200, width: 200, flex: 1 }} />
-                                <Text>
-                                    Your text here
-                                </Text>
+                                <Image source={this.imagens.getForIndex(card.image)} style={{ height: 200, width: width / 1.16, flex: 1 }} />
+                                <Text>{card.text}</Text>                                
                             </Body>
-                        </CardItem>
+                        </CardItem>                        
                         <CardItem>
                             <Left>
                                 <Button transparent textStyle={{ color: '#87838B' }}>

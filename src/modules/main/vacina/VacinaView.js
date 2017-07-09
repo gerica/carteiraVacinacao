@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import I18n from 'react-native-i18n';
-import { Text, Dimensions } from 'react-native';
+import { Text } from 'react-native';
 import {
     Left, Container, Content, CardItem,
     Body, Card, Thumbnail, Button
 } from 'native-base';
-import { ApplicationStyles, Colors, Fonts } from '../../../components/Themes';
+import { ApplicationStyles } from '../../../components/Themes';
 import pt from '../../../i18n/locales/pt-BR';
-import { getImgRandom } from '../../../utils/ImagensRandom';
+import Imagens from '../../../utils/image/Imagens';
 
 I18n.fallbacks = true;
 I18n.defaultLocale = 'pt';
@@ -23,6 +23,7 @@ class VacinaView extends Component {
 
     }
 
+    imagens = new Imagens();
     render() {
         return (
             <Container style={ApplicationStyles.screen.mainContainer}>
@@ -30,7 +31,7 @@ class VacinaView extends Component {
                     <Card>
                         <CardItem>
                             <Left>
-                                <Thumbnail source={getImgRandom()} />
+                                <Thumbnail source={this.imagens.getKitSaude3().getImgRandom()} />
                                 <Body>
                                     <Text>Próxima Vacina</Text>
                                     <Text>Tetravalente (DTP + Hib)</Text>

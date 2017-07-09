@@ -33,8 +33,7 @@ class Dashboard extends Component {
     render() {
         if (this.props.onLoading || !this.props.bebe) {
             return <Spinner />;
-        }
-        console.log(this.props);
+        }        
         return (
             <ScrollView>
                 <Container style={ApplicationStyles.screen.mainContainer}>

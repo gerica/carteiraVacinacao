@@ -1,6 +1,7 @@
 import { Map, List } from 'immutable';
 import Bebe from '../../model/bebe.js';
 import BebeDao from '../../dao/BebeDao';
+import * as vacinaService from '../../services/vacina/VacinaService';
 
 // Initial state
 const initialState = Map({
@@ -81,12 +82,18 @@ export function save(bebe, navigate) {
             } else {
                 list = value;
             }
-            const newList = list.push(bebe);
+            const novoBebe = new Bebe();
+            novoBebe.nome = bebe.nome;
+            novoBebe.dataNascimento = bebe.dataNascimento;
+            novoBebe.sexo = bebe.sexo;
+            novoBebe.sobrenome = bebe.sobrenome;
+            novoBebe.vacinas = vacinaService.criarListaInicial();
+            const newList = list.push(novoBebe);
             console.log(newList);
             dao.save(newList).then(() => navigate('Home'));
         });
-        dispatch(onReset());
-        dispatch(attrOnLoading(false));
+        // dispatch(onReset());
+        // dispatch(attrOnLoading(false));
         // dispatch(attrBebe(new Bebe()));
     };
 }

@@ -1,23 +1,14 @@
 import React, { Component } from 'react';
 import I18n from 'react-native-i18n';
 import { View, Text, Image, Dimensions, ScrollView } from 'react-native';
-import IconEntypo from 'react-native-vector-icons/Entypo';
+// import IconEntypo from 'react-native-vector-icons/Entypo';
 import {
-    Button,
-    Icon,
-    Container,
-    Content,
-    Footer,
-    FooterTab,
-    Left,
-    Header,
-    Body,
-    Title,
-    Grid,
-    Col
+    Button, Container, Content, Header, Body,
+    Title, Grid, Col
 } from 'native-base';
-import { ApplicationStyles, Colors, Fonts } from '../../components/Themes';
+import { ApplicationStyles, Colors } from '../../components/Themes';
 import pt from '../../i18n/locales/pt-BR';
+import Imagens from '../../utils/image/Imagens';
 
 I18n.fallbacks = true;
 I18n.defaultLocale = 'pt';
@@ -27,7 +18,6 @@ I18n.translations = {
     pt
 };
 
-const imgBackGround = require('../../../resources/img/elefante.jpg');
 
 const { height, width } = Dimensions.get('window');
 
@@ -35,19 +25,9 @@ class HomeView extends Component {
 
     static navigationOptions = {
         header: null,
-        // drawerLabel: 'Home',
-        // drawerIcon: () => (
-        //     <View style={ApplicationStyles.menu.circleMenu}>
-        //         <IconEntypo
-        //             name="home"
-        //             size={13} color={Colors.logo}
-        //         />
-        //     </View>
-        // ),
     };
-
     componentWillMount() {
-        this.props.actions.init();
+        this.props.actions.init();        
     }
     onNovo() {
         const { navigate } = this.props.navigation;
@@ -61,12 +41,12 @@ class HomeView extends Component {
         const { navigate } = this.props.navigation;
         navigate('Main', { bebe });
     }
+    imagens = new Imagens();
     renderButtonBebes() {
         const { bebes } = this.props;
         if (!bebes) {
             return null;
         }
-        console.log(bebes);
         let count = 1;
         const getButton = bebe => {
             count++;
@@ -83,14 +63,12 @@ class HomeView extends Component {
         };
 
         const buttons = bebes.map(getButton);
-        // console.log(buttons);
         return (
             <View>
                 {buttons}
             </View>);
     }
     render() {
-        // console.log(getTheme());
         console.log(this.props);
         return (
             <ScrollView>
@@ -101,7 +79,7 @@ class HomeView extends Component {
                         </Body>
                     </Header>
                     <Content style={{ padding: 1 }}>
-                        <Image source={imgBackGround} style={styles.image} />
+                        <Image source={this.imagens.elefante} style={styles.image} />
                         <Grid style={styles.grid}>
                             <Col>
                                 {this.renderButtonBebes()}

@@ -2,7 +2,8 @@ export default class Bebe {
     nome = '';
     sobrenome = '';
     dataNascimento = '';
-    sexo = ''
+    sexo = '';
+    vacinas = [];
 }
 
 export const MENINO = 'M';

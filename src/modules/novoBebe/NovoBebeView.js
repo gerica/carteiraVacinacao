@@ -131,10 +131,10 @@ class NovoBebeView extends Component {
                                 <Button
                                     rounded
                                     block
-                                    style={styles.button}
+                                    style={ApplicationStyles.screen.buttonDefault1}
                                     onPress={this.onNovo.bind(this)}
                                 >
-                                    <Text style={styles.text}>{I18n.t('novoBebe.salvar')}</Text>
+                                    <Text style={ApplicationStyles.screen.textWhite}>{I18n.t('novoBebe.salvar')}</Text>
                                 </Button>
                             </Col>
                         </Grid>
@@ -147,25 +147,9 @@ class NovoBebeView extends Component {
 }
 
 const styles = {
-    image: {
-        width,
-        height: height - 80,
-    },
     grid: {
         alignItems: 'flex-end',
     },
-    button: {
-        // backgroundColor: 'transparent',
-        backgroundColor: Colors.background,
-        opacity: 0.8,
-        borderColor: Colors.bar,
-        borderWidth: 1,
-        margin: 1,
-    },
-    text: {
-        ...Fonts.style.normal,
-        color: Colors.white,
-    }
 };
 
 export default NovoBebeView;
