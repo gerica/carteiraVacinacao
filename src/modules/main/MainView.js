@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import I18n from 'react-native-i18n';
 import { Text, ScrollView } from 'react-native';
+import IconIonicons from 'react-native-vector-icons/Ionicons';
 import {
     Icon, Container, Header, Button, Body, Title,
-    Tabs, Tab, TabHeading, Spinner, Left
+    Tabs, Tab, TabHeading, Spinner, Left, Right
 } from 'native-base';
 import { ApplicationStyles, Colors } from '../../components/Themes';
 import pt from '../../i18n/locales/pt-BR';
@@ -34,7 +35,7 @@ class Dashboard extends Component {
     render() {
         if (this.props.onLoading || !this.props.bebe) {
             return <Spinner />;
-        }        
+        }
         return (
             <ScrollView>
                 <Container style={ApplicationStyles.screen.mainContainer}>
@@ -52,6 +53,19 @@ class Dashboard extends Component {
                         <Body>
                             <Title>{`${I18n.t('dashboard.title')} ${this.props.bebe.nome}`}</Title>
                         </Body>
+                        <Right>
+                            <Button
+                                transparent
+                                onPress={() =>
+                                    this.props.navigation.goBack()
+                                }
+                            >
+                                <IconIonicons
+                                    name="md-settings"
+                                    size={20} color={Colors.white}
+                                />
+                            </Button>
+                        </Right>
                     </Header>
                     <Tabs initialPage={0} tabBarPosition={'bottom'}>
                         <Tab heading={<TabHeading><Icon name="home" /></TabHeading>}>
