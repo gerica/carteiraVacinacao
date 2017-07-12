@@ -1,5 +1,6 @@
 import { AsyncStorage } from 'react-native';
 import { fromJS } from 'immutable';
+import Bebe from '../model/bebe';
 
 const STATE_STORAGE_KEY = 'carteiraVacinacao:BebeDao';
 
@@ -7,8 +8,9 @@ const STATE_STORAGE_KEY = 'carteiraVacinacao:BebeDao';
 export default class BebeDao {
     async find() {
         const state = await this.reads();
+        // console.log(fromJS(state));
         if (state) {
-            return fromJS(state);
+            return state;
         }
 
         return null;
@@ -43,6 +45,8 @@ export default class BebeDao {
     async reads() {
         try {
             const state = await AsyncStorage.getItem(STATE_STORAGE_KEY);
+            // console.log(state);
+            // console.log(JSON.parse(state));
             return state
                 ? JSON.parse(state)
                 : null;
@@ -58,5 +62,14 @@ export default class BebeDao {
         } catch (e) {
             console.error('Error clearing peristed application state', e);
         }
+    }
+
+    criarNovoBebe(bebe) {
+        const novoBebe = new Bebe();
+        novoBebe.nome = bebe.nome;
+        novoBebe.dataNascimento = bebe.dataNascimento;
+        novoBebe.sexo = bebe.sexo;
+        novoBebe.sobrenome = bebe.sobrenome;
+        return novoBebe;
     }
 }

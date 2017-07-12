@@ -33,6 +33,7 @@ class Dashboard extends Component {
         }
     }
     render() {
+        // console.log(this.props);
         if (this.props.onLoading || !this.props.bebe) {
             return <Spinner />;
         }
@@ -72,7 +73,7 @@ class Dashboard extends Component {
                             <DashboardViewContainer />
                         </Tab>
                         <Tab heading={<TabHeading><Icon name="book" /></TabHeading>}>
-                            <VacinaViewContainer />
+                            <VacinaViewContainer navigation={this.props.navigation} />
                         </Tab>
                         <Tab heading={<TabHeading><Icon name="medkit" /></TabHeading>}>
                             <Text>

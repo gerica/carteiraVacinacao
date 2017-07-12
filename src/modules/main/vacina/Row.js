@@ -27,10 +27,20 @@ const Row = (props) => (
                                 </Body>
                             </Left>
                             <Right>
-                                <IconIonicons
-                                    name="ios-power"
-                                    size={20} color={Colors.logo}
-                                />
+                                {
+                                    props.dataAplicacao === undefined || props.dataAplicacao === null
+                                        ?
+                                        <IconIonicons
+                                            name="md-square-outline"
+                                            size={20} color={Colors.logo}
+                                        />
+                                        :
+                                        <IconIonicons
+                                            name="md-checkbox-outline"
+                                            size={20} color={Colors.logo}
+                                        />
+                                }
+
                             </Right>
                         </CardItem>
                     </Card>
@@ -41,3 +51,4 @@ const Row = (props) => (
 );
 
 export default Row;
+

@@ -76,18 +76,15 @@ export function save(bebe, navigate) {
         dispatch(attrOnLoading(true));
         dao.find().then((value) => {
             let list;
-            
+
             if (!value) {
                 list = List();
             } else {
                 list = value;
             }
-            const novoBebe = new Bebe();
-            novoBebe.nome = bebe.nome;
-            novoBebe.dataNascimento = bebe.dataNascimento;
-            novoBebe.sexo = bebe.sexo;
-            novoBebe.sobrenome = bebe.sobrenome;
+            const novoBebe = dao.criarNovoBebe(bebe);
             const vacinas = vacinaService.criarListaInicial();
+
             novoBebe.vacinas = List(vacinaService.calcProximaData(bebe, vacinas));
             const newList = list.push(novoBebe);
             // console.log(newList);

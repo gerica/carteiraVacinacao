@@ -83,8 +83,9 @@ export function getProximas(bebe) {
     return result;
 }
 
-function criarVacina(dado) {
+export function criarVacina(dado) {
     const vacina = new Vacina();
+    vacina.id = dado.id;
     vacina.idade = dado.idade;
     vacina.nome = dado.nome;
     vacina.doses = dado.doses;

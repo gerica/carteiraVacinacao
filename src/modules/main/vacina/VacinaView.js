@@ -24,7 +24,9 @@ I18n.translations = {
 class VacinaView extends Component {
 
     onVacinar() {
-        console.log('rowData');
+        const { navigate } = this.props.navigation;
+        const { bebe } = this.props;
+        navigate('RealizarVacina', { bebe });
     }
     onNovo() {
 
@@ -76,7 +78,7 @@ class VacinaView extends Component {
                                 <Text>Próxima Vacina - {dataPrevista}</Text>
                                 <View>
                                     {proximaVacinasText}
-                                </View>                            
+                                </View>
                             </Body>
                         </Left>
                     </CardItem>
@@ -85,6 +87,7 @@ class VacinaView extends Component {
         );
     }
     render() {
+        console.log(this.props);
         return (
             <Container style={ApplicationStyles.screen.mainContainer}>
                 <Content>

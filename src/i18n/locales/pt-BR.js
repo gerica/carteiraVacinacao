@@ -11,6 +11,7 @@ export default {
         title: 'Carteira do'
     },
     vacina: {
-        novaVacina: 'Nova Vacina'
+        novaVacina: 'Nova Vacina',
+        realizarVacinaTitle: 'Vacinar',
     }
 };
