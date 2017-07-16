@@ -86,7 +86,7 @@ class NovoBebeView extends Component {
                                         />
                                     </Item>
                                     <Item floatingLabel last>
-                                        <Label>Data de Nacimento</Label>
+                                        <Label>Data de Nascimento</Label>
                                         <Input
                                             onChangeText={
                                                 text => this.props.actions.attrBebeDataNascimento(text)

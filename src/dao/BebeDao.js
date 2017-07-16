@@ -10,8 +10,8 @@ export default class BebeDao {
         const state = await this.reads();
         // console.log(fromJS(state));
         if (state) {
-            return fromJS(state);
-            // return state;
+            // return fromJS(state);
+            return state;
         }
 
         return null;
