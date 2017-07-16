@@ -1,12 +1,8 @@
 import { Map } from 'immutable';
-import I18n from 'react-native-i18n';
-import en from '../../i18n/locales/en';
 import LogginService from '../../services/LogginService';
+// import I18n from '../../i18n/i18n';
 
 const log = new LogginService();
-
-I18n.fallbacks = true;
-I18n.translations = { en };
 
 // Initial state
 const initialState = Map({

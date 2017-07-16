@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import I18n from 'react-native-i18n';
 import { View, Text, ListView, StyleSheet, TouchableHighlight } from 'react-native';
 import {
     Container, Content, CardItem, Body, Card, Button,
@@ -8,18 +7,10 @@ import {
 import moment from 'moment';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import { ApplicationStyles, Colors } from '../../../components/Themes';
-import pt from '../../../i18n/locales/pt-BR';
 import * as vacinaServices from '../../../services/vacina/VacinaService';
 import Row from './Row';
 import Imagens from '../../../utils/image/Imagens';
-
-I18n.fallbacks = true;
-I18n.defaultLocale = 'pt';
-I18n.locale = 'pt-BR';
-
-I18n.translations = {
-    pt
-};
+import I18n from '../../../i18n/i18n';
 
 class VacinaView extends Component {
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import I18n from 'react-native-i18n';
+
 import { Text, ScrollView } from 'react-native';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import {
@@ -7,17 +7,9 @@ import {
     Tabs, Tab, TabHeading, Spinner, Left, Right
 } from 'native-base';
 import { ApplicationStyles, Colors } from '../../components/Themes';
-import pt from '../../i18n/locales/pt-BR';
 import DashboardViewContainer from './dashboard/DashboardViewContainer';
 import VacinaViewContainer from './vacina/VacinaViewContainer';
-
-I18n.fallbacks = true;
-I18n.defaultLocale = 'pt';
-I18n.locale = 'pt-BR';
-
-I18n.translations = {
-    pt
-};
+import I18n from '../../i18n/i18n';
 
 class Dashboard extends Component {
     static navigationOptions = {

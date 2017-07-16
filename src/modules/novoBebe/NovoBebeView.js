@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import I18n from 'react-native-i18n';
 import { View, Text, Dimensions, ScrollView } from 'react-native';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import {
@@ -8,16 +7,8 @@ import {
     Grid, Col, ListItem, Right, Radio, Spinner
 } from 'native-base';
 import { ApplicationStyles, Colors, Fonts } from '../../components/Themes';
-import pt from '../../i18n/locales/pt-BR';
 import { MENINO, MENINA } from '../../model/bebe';
-
-I18n.fallbacks = true;
-I18n.defaultLocale = 'pt';
-I18n.locale = 'pt-BR';
-
-I18n.translations = {
-    pt
-};
+import I18n from '../../i18n/i18n';
 
 const { height, width } = Dimensions.get('window');
 
