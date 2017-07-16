@@ -3,6 +3,8 @@ const colors = {
     background: '#e0edf6',
     button: '#7986cb',
     white: '#FFFFFF',
+    black: '#000000',
+    belizeHole: '#2980b9',
     // logo: '#8befbf',
     // borderLogo: '#59c1df',
     // circleMenu: '#45539e',

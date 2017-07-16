@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, ScrollView } from 'react-native';
-import IconEntypo from 'react-native-vector-icons/Entypo';
+import { View, Text, Dimensions, ScrollView, DatePickerAndroid, TouchableWithoutFeedback } from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {
     Button, Icon, Left, Container, Content, Header,
     Body, Title, Form, Item, Input, Label,
@@ -39,9 +39,50 @@ class NovoBebeView extends Component {
         // navigate('Sigunp');
         this.props.actions.save(this.props.bebe, navigate);
     }
+    dataNascimentoString() {
+        const { bebe } = this.props;
+        if (bebe.dataNascimento) {
+            return bebe.dataNascimento.toLocaleDateString();
+        }
+        return '';
+    }
+    showPicker = async (stateKey, options) => {
+        try {
+            const newState = {};
+            const { action, year, month, day } = await DatePickerAndroid.open(options);
+            if (action === DatePickerAndroid.dismissedAction) {
+                this.props.action.attrBebeDataNascimento(null);
+            } else {
+                const date = new Date(year, month, day);
+                this.props.actions.attrBebeDataNascimento(date);
+            }
+            this.setState(newState);
+        } catch ({ code, message }) {
+            console.warn(`Error in example '${stateKey}': `, message);
+        }
+    };
+    styleValid() {
+        const style = ApplicationStyles.screen.buttonDefault1;
+        if (!this.isFormFill()) {
+            style.opacity = 0.4;
+        } else {
+            style.opacity = 0.8;
+        }
+        return style;
+    }
+    validCreate() {
+
+    }
+    isFormFill() {
+        const { bebe } = this.props;
+        if (bebe) {
+            if (bebe.nome && bebe.sobrenome && bebe.dataNascimento && bebe.sexo) {
+                return true;
+            }
+        }
+        return false;
+    }
     render() {
-        // console.log(getTheme());
-        console.log(this.props);
         if (this.props.onLoading) {
             return <Spinner />;
         }
@@ -60,7 +101,7 @@ class NovoBebeView extends Component {
                             </Button>
                         </Left>
                         <Body>
-                            <Title>{I18n.t('home.title')}</Title>
+                            <Title>{I18n.t('novoBebe.title')}</Title>
                         </Body>
                     </Header>
                     <Content style={{ padding: 1 }}>
@@ -68,7 +109,7 @@ class NovoBebeView extends Component {
                             <Col>
                                 <Form>
                                     <Item floatingLabel>
-                                        <Label>Nome</Label>
+                                        <Label>{I18n.t('novoBebe.nome')}</Label>
                                         <Input
                                             onChangeText={
                                                 text => this.props.actions.attrBebeNome(text)
@@ -77,7 +118,7 @@ class NovoBebeView extends Component {
                                         />
                                     </Item>
                                     <Item floatingLabel >
-                                        <Label>Sobrenome</Label>
+                                        <Label>{I18n.t('novoBebe.sobrenome')}</Label>
                                         <Input
                                             onChangeText={
                                                 text => this.props.actions.attrBebeSobrenome(text)
@@ -85,14 +126,15 @@ class NovoBebeView extends Component {
                                             value={this.props.bebe.sobrenome}
                                         />
                                     </Item>
-                                    <Item floatingLabel last>
-                                        <Label>Data de Nascimento</Label>
-                                        <Input
-                                            onChangeText={
-                                                text => this.props.actions.attrBebeDataNascimento(text)
-                                            }
-                                            value={this.props.bebe.dataNascimento}
-                                        />
+                                    <Item label="Wallet">
+                                        <Label>{I18n.t('novoBebe.datanascimento')}</Label>
+                                        <TouchableWithoutFeedback onPress={this.showPicker.bind(this, 'preset', { date: this.props.bebe.dataNascimento || new Date() })}>
+                                            <View style={[ApplicationStyles.screen.rightContainer, { paddingRight: '5%' }]}>
+                                                <MaterialIcons name='today' size={30} color={Colors.belizeHole} />
+                                                <Text>{this.dataNascimentoString()}</Text>
+                                            </View>
+                                        </TouchableWithoutFeedback>
+
                                     </Item>
 
                                     <ListItem>
@@ -120,9 +162,10 @@ class NovoBebeView extends Component {
 
                                 </Form>
                                 <Button
+                                    disabled={!this.isFormFill()}
                                     rounded
                                     block
-                                    style={ApplicationStyles.screen.buttonDefault1}
+                                    style={this.styleValid()}
                                     onPress={this.onNovo.bind(this)}
                                 >
                                     <Text style={ApplicationStyles.screen.textWhite}>{I18n.t('novoBebe.salvar')}</Text>

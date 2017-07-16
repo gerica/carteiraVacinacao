@@ -25,7 +25,7 @@ const dao = new BebeDao();
 export function init() {
     return (dispatch) => {
         dispatch(onReset());
-        // dao.delete();
+        dao.delete();
         // dispatch(attrBebe(new Bebe()));
     };
 }
