@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
-import I18n from 'react-native-i18n';
 import { ApplicationStyles, Colors } from '../../components/Themes';
-import en from '../../i18n/locales/en';
-
-I18n.fallbacks = true;
-I18n.translations = { en };
+// import I18n from '../../i18n/i18n';
 
 class LoginView extends Component {
     static navigationOptions = {

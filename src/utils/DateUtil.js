@@ -1,11 +1,5 @@
-import I18n from 'react-native-i18n';
-import en from '../i18n/locales/en';
+import I18n from '../i18n/i18n';
 
-I18n.fallbacks = true;
-
-I18n.translations = {
-    en
-};
 // const year = dataString.substring(0, 4);
 // const month = dataString.substring(5, 7);
 // const day = dataString.substring(8, 10);

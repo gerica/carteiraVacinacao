@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import IconEntypo from 'react-native-vector-icons/Entypo';
-import I18n from 'react-native-i18n';
 import LogginService from '../../services/LogginService';
 import { Colors } from '../../components/Themes';
-import en from '../../i18n/locales/en';
-
-I18n.fallbacks = true;
-I18n.translations = { en };
+// import I18n from '../../i18n/i18n';
 
 const log = new LogginService();
 

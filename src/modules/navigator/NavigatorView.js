@@ -6,6 +6,7 @@ import HomeViewContainer from '../home/HomeViewContainer';
 import LoginViewContainer from '../login/LoginViewContainer';
 import NovoBebeViewContainer from '../novoBebe/NovoBebeViewContainer';
 import MainViewContainer from '../main/MainViewContainer';
+import RealizarVacinaViewContainer from '../main/vacina/RealizarVacinaViewContainer';
 
 export const Drawer = DrawerNavigator({
   Home: { screen: HomeViewContainer },
@@ -40,7 +41,8 @@ const styles = {
 const AppNavigator = StackNavigator({
   Home: { screen: HomeViewContainer },
   Main: { screen: MainViewContainer },
-  NovoBebe: { screen: NovoBebeViewContainer }
+  NovoBebe: { screen: NovoBebeViewContainer },
+  RealizarVacina: { screen: RealizarVacinaViewContainer }
 });
 
 export default AppNavigator;

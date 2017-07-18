@@ -64,7 +64,7 @@ export function calcProximaData(bebe, vacinas) {
 
 export function getProxima(bebe) {
     const proxima = v => {
-        for (const chave of chaveVacinas) {            
+        for (const chave of chaveVacinas) {
             if (chave === v.idade && (!v.dataAplicacao)) {
                 return v;
             }
@@ -72,13 +72,20 @@ export function getProxima(bebe) {
         return null;
     };
     const result = bebe.vacinas.find(proxima);
-    console.log(result);
 
     return result;
 }
 
-function criarVacina(dado) {
+export function getProximas(bebe) {
+    const proxima = getProxima(bebe);
+    const filterProxima = e => proxima.idade === e.idade;
+    const result = bebe.vacinas.filter(filterProxima);
+    return result;
+}
+
+export function criarVacina(dado) {
     const vacina = new Vacina();
+    vacina.id = dado.id;
     vacina.idade = dado.idade;
     vacina.nome = dado.nome;
     vacina.doses = dado.doses;

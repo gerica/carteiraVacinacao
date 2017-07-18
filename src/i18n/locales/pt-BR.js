@@ -5,12 +5,17 @@ export default {
         footer: 'App',
     },
     novoBebe: {
+        title: 'Carteira de Saúde',
+        nome: 'Nome',
+        sobrenome: 'Sobrenome',
+        datanascimento: 'Data de Nascimento',
         salvar: 'Salvar'
     },
     dashboard: {
         title: 'Carteira do'
     },
     vacina: {
-        novaVacina: 'Nova Vacina'
+        novaVacina: 'Nova Vacina',
+        realizarVacinaTitle: 'Vacinar',
     }
 };

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import I18n from 'react-native-i18n';
 import { View, Text, Image, Dimensions, ScrollView } from 'react-native';
 // import IconEntypo from 'react-native-vector-icons/Entypo';
 import {
@@ -7,17 +6,8 @@ import {
     Title, Grid, Col
 } from 'native-base';
 import { ApplicationStyles, Colors } from '../../components/Themes';
-import pt from '../../i18n/locales/pt-BR';
 import Imagens from '../../utils/image/Imagens';
-
-I18n.fallbacks = true;
-I18n.defaultLocale = 'pt';
-I18n.locale = 'pt-BR';
-
-I18n.translations = {
-    pt
-};
-
+import I18n from '../../i18n/i18n';
 
 const { height, width } = Dimensions.get('window');
 
@@ -27,7 +17,7 @@ class HomeView extends Component {
         header: null,
     };
     componentWillMount() {
-        this.props.actions.init();        
+        this.props.actions.init();
     }
     onNovo() {
         const { navigate } = this.props.navigation;
@@ -44,6 +34,7 @@ class HomeView extends Component {
     imagens = new Imagens();
     renderButtonBebes() {
         const { bebes } = this.props;
+        console.log(bebes);
         if (!bebes) {
             return null;
         }
@@ -69,16 +60,16 @@ class HomeView extends Component {
             </View>);
     }
     render() {
-        console.log(this.props);
+        // console.log(this.props);
         return (
             <ScrollView>
-                <Container>
+                
                     <Header style={{ backgroundColor: Colors.headerBackgroud }}>
                         <Body>
                             <Title>{I18n.t('home.title')}</Title>
                         </Body>
                     </Header>
-                    <Content style={{ padding: 1 }}>
+                    <View style={{ padding: 1 }}>
                         <Image source={this.imagens.elefante} style={styles.image} />
                         <Grid style={styles.grid}>
                             <Col>
@@ -88,8 +79,8 @@ class HomeView extends Component {
                                 </Button>
                             </Col>
                         </Grid>
-                    </Content>
-                </Container>
+                    </View>
+
             </ScrollView>
         );
     }

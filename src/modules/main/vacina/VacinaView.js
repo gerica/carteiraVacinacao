@@ -1,50 +1,89 @@
 import React, { Component } from 'react';
-import I18n from 'react-native-i18n';
-import { Text } from 'react-native';
+import { View, Text, ListView, StyleSheet, TouchableHighlight } from 'react-native';
 import {
-    Left, Container, Content, CardItem,
-    Body, Card, Thumbnail, Button
+    Container, Content, CardItem, Body, Card, Button,
+    Thumbnail, Right, Left
 } from 'native-base';
 import moment from 'moment';
-import { ApplicationStyles } from '../../../components/Themes';
-import pt from '../../../i18n/locales/pt-BR';
-import Imagens from '../../../utils/image/Imagens';
+import IconIonicons from 'react-native-vector-icons/Ionicons';
+import { ApplicationStyles, Colors } from '../../../components/Themes';
 import * as vacinaServices from '../../../services/vacina/VacinaService';
-
-I18n.fallbacks = true;
-I18n.defaultLocale = 'pt';
-I18n.locale = 'pt-BR';
-
-I18n.translations = {
-    pt
-};
+import Row from './Row';
+import Imagens from '../../../utils/image/Imagens';
+import I18n from '../../../i18n/i18n';
 
 class VacinaView extends Component {
 
-    onNovo() {
+    onVacinar() {
+        const { navigate } = this.props.navigation;
+        const { bebe } = this.props;
+        navigate('RealizarVacina', { bebe });
     }
+    onNovo() {
 
-    imagens = new Imagens();
+    }
+    renderCardsProximaVacinasList() {
+        const proximaVacina = vacinaServices.getProximas(this.props.bebe);
+        if (!proximaVacina) {
+            return;
+        }
+
+        const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+        this.state = {
+            dataSource: ds.cloneWithRows(proximaVacina),
+        };
+        return (
+            <ListView
+                enableEmptySections
+                dataSource={this.state.dataSource}
+                renderRow={(rowData) =>
+                    <Row
+                        onPress={this.onVacinar.bind(this, rowData)}
+                        {...rowData}
+                    />}
+                renderSeparator={
+                    (sectionId, rowId) => <View key={rowId} style={styles.separator} />
+                }
+            />
+        );
+    }
+    renderCardsProximaVacinas() {
+        const proximaVacina = vacinaServices.getProximas(this.props.bebe);
+        if (!proximaVacina) {
+            return;
+        }
+        const getText = (v, i) => <Text key={i}>{v.nome}</Text>;
+        const proximaVacinasText = proximaVacina.map(getText);
+        const dataPrevista = moment(proximaVacina[0].dataPrevista).format('DD-MM-YYYY');
+
+        return (
+            <TouchableHighlight
+                onPress={this.onVacinar.bind(this)}
+                underlayColor={Colors.white}
+            >
+                <Card>
+                    <CardItem>
+                        <Left>
+                            <Thumbnail source={new Imagens().getKitSaude3().injecao} />
+                            <Body>
+                                <Text>Próxima Vacina - {dataPrevista}</Text>
+                                <View>
+                                    {proximaVacinasText}
+                                </View>
+                            </Body>
+                        </Left>
+                    </CardItem>
+                </Card>
+            </TouchableHighlight>
+        );
+    }
     render() {
-        const proximaVacina = vacinaServices.getProxima(this.props.bebe);
-        console.log(proximaVacina);
+        console.log(this.props);
         return (
             <Container style={ApplicationStyles.screen.mainContainer}>
                 <Content>
-                    {proximaVacina === undefined ? null :
-                        <Card>
-                            <CardItem>
-                                <Left>
-                                    <Thumbnail source={this.imagens.getKitSaude3().injecao} />
-                                    <Body>
-                                        <Text>Próxima Vacina</Text>
-                                        <Text>{proximaVacina.nome}</Text>
-                                        <Text note>{moment(proximaVacina.dataPrevista).format('DD-MM-YYYY')}</Text>
-                                    </Body>
-                                </Left>
-                            </CardItem>
-                        </Card>
-                    }
+
+                    {this.renderCardsProximaVacinas()}
                     <Card>
                         <CardItem header>
                             <Text>Hitórico</Text>
@@ -65,6 +104,19 @@ class VacinaView extends Component {
         );
     }
 }
+
+
+const styles = StyleSheet.create({
+    /*
+     * Removed for brevity
+     */
+    separator: {
+        flex: 1,
+        height: StyleSheet.hairlineWidth,
+        margin: 1,
+        // backgroundColor: Colors.darkBlueGreyThree,
+    },
+});
 
 export default VacinaView;
 
