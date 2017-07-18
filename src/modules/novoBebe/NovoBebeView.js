@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, ScrollView, DatePickerAndroid, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, ScrollView, DatePickerAndroid, TouchableWithoutFeedback } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {
     Button, Icon, Left, Container, Content, Header,
     Body, Title, Form, Item, Input, Label,
     Grid, Col, ListItem, Right, Radio, Spinner
 } from 'native-base';
-import { ApplicationStyles, Colors, Fonts } from '../../components/Themes';
+import { ApplicationStyles, Colors } from '../../components/Themes';
 import { MENINO, MENINA } from '../../model/bebe';
 import I18n from '../../i18n/i18n';
-
-const { height, width } = Dimensions.get('window');
 
 class NovoBebeView extends Component {
 
@@ -105,6 +103,11 @@ class NovoBebeView extends Component {
                         </Body>
                     </Header>
                     <Content style={{ padding: 1 }}>
+                        <View style={[ApplicationStyles.screen.marginJusiify, ApplicationStyles.screen.rowCenter]}>
+                            <Text style={ApplicationStyles.screen.textStyleWarning}>
+                                {this.props.message}
+                            </Text>
+                        </View>
                         <Grid style={styles.grid}>
                             <Col>
                                 <Form>

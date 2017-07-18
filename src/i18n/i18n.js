@@ -15,6 +15,6 @@ I18n.translations = {
     pt
 };
 
-console.log(I18n);
+// console.log(I18n);
 
 export default I18n; 

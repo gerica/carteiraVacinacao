@@ -13,6 +13,7 @@ const initialState = Map({
 // Actions
 const RESET = 'NovoBebeState/RESET';
 const ATTR_ON_LOADING = 'NovoBebeState/ATTR_ON_LOADING';
+const ATTR_MESSAGE = 'NovoBebeState/ATTR_MESSAGE';
 const ATTR_BEBE = 'NovoBebeState/ATTR_BEBE';
 const ATTR_BEBE_NOME = 'NovoBebeState/ATTR_BEBE_NOME';
 const ATTR_BEBE_SOBRENOME = 'NovoBebeState/ATTR_BEBE_SOBRENOME';
@@ -25,7 +26,8 @@ const dao = new BebeDao();
 export function init() {
     return (dispatch) => {
         dispatch(onReset());
-        dao.delete();
+        // dispatch(attrMessage('Já existe bebe cadastrado com esse nome, informe outro nome.'));
+        // dao.delete();
         // dispatch(attrBebe(new Bebe()));
     };
 }
@@ -37,6 +39,12 @@ export function onReset() {
 export function attrOnLoading(value) {
     return {
         type: ATTR_ON_LOADING,
+        payload: value
+    };
+}
+export function attrMessage(value) {
+    return {
+        type: ATTR_MESSAGE,
         payload: value
     };
 }
@@ -81,18 +89,20 @@ export function save(bebe, navigate) {
                 list = List();
             } else {
                 list = value;
+                const findBebe = b => b.nome === bebe.nome;
+                const antigoBebe = value.find(findBebe);
+                if (antigoBebe) {
+                    dispatch(attrMessage('Já existe bebe cadastrado com esse nome, informe outro nome.'));
+                    return;
+                }
             }
             const novoBebe = dao.criarNovoBebe(bebe);
             const vacinas = vacinaService.criarListaInicial();
 
             novoBebe.vacinas = List(vacinaService.calcProximaData(bebe, vacinas));
-            const newList = list.push(novoBebe);
-            // console.log(newList);
-            dao.save(newList).then(() => navigate('Home'));
+            list.push(novoBebe);
+            dao.save(list).then(() => navigate('Home'));
         });
-        // dispatch(onReset());
-        // dispatch(attrOnLoading(false));
-        // dispatch(attrBebe(new Bebe()));
     };
 }
 
@@ -105,6 +115,8 @@ export default function NovoBebeStateReducer(state = initialState, action) {
             return initialState;
         case ATTR_ON_LOADING:
             return state.update('onLoading', () => action.payload);
+        case ATTR_MESSAGE:
+            return state.update('message', () => action.payload);
         case ATTR_BEBE:
             return state.update('bebe', () => action.payload);
         case ATTR_BEBE_NOME:

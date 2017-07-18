@@ -5,6 +5,7 @@ const colors = {
     white: '#FFFFFF',
     black: '#000000',
     belizeHole: '#2980b9',
+    sunFlower: '#f1c40f',
     // logo: '#8befbf',
     // borderLogo: '#59c1df',
     // circleMenu: '#45539e',

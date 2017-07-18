@@ -17,7 +17,7 @@ class HomeView extends Component {
         header: null,
     };
     componentWillMount() {
-        this.props.actions.init();        
+        this.props.actions.init();
     }
     onNovo() {
         const { navigate } = this.props.navigation;
@@ -34,6 +34,7 @@ class HomeView extends Component {
     imagens = new Imagens();
     renderButtonBebes() {
         const { bebes } = this.props;
+        console.log(bebes);
         if (!bebes) {
             return null;
         }
@@ -62,13 +63,13 @@ class HomeView extends Component {
         // console.log(this.props);
         return (
             <ScrollView>
-                <Container>
+                
                     <Header style={{ backgroundColor: Colors.headerBackgroud }}>
                         <Body>
                             <Title>{I18n.t('home.title')}</Title>
                         </Body>
                     </Header>
-                    <Content style={{ padding: 1 }}>
+                    <View style={{ padding: 1 }}>
                         <Image source={this.imagens.elefante} style={styles.image} />
                         <Grid style={styles.grid}>
                             <Col>
@@ -78,8 +79,8 @@ class HomeView extends Component {
                                 </Button>
                             </Col>
                         </Grid>
-                    </Content>
-                </Container>
+                    </View>
+
             </ScrollView>
         );
     }

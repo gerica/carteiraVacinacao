@@ -72,7 +72,7 @@ const ApplicationStyles = {
         textStyleWarning: {
             fontSize: 20,
             alignSelf: 'center',
-            color: '#CCFF33'
+            color: Colors.sunFlower
         },
         buttonDefault1: {
             // backgroundColor: 'transparent',
