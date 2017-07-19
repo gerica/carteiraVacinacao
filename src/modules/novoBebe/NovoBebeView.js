@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, DatePickerAndroid, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, ScrollView, TouchableWithoutFeedback } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {
     Button, Icon, Left, Container, Content, Header,
@@ -141,7 +141,7 @@ class NovoBebeView extends Component {
                                                 date={this.props.bebe.dataNascimento}
                                                 mode="date"
                                                 placeholder="placeholder"
-                                                format="YYYY-MM-DD"
+                                                format="DD-MM-YYYY"
                                                 confirmBtnText="Confirmar"
                                                 cancelBtnText="Cancelar"
                                                 onDateChange={(date) => {this.setState({date: { date: this.props.bebe.dataNascimento || new Date() }});}}
