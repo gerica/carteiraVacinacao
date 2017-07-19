@@ -1,0 +1,6 @@
+<TouchableWithoutFeedback onPress={this.showPicker.bind(this, 'preset', { date: this.props.bebe.dataNascimento || new Date() })}>
+                                            <View style={[ApplicationStyles.screen.rightContainer, { paddingRight: '5%' }]}>
+                                                <MaterialIcons name='today' size={30} color={Colors.belizeHole} />
+                                                <Text>{this.dataNascimentoString()}</Text>
+                                            </View>
+                                        </TouchableWithoutFeedback>

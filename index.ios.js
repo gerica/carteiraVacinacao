@@ -1,53 +1,38 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
+import { Provider } from 'react-redux';
 import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import { AppRegistry, BackHandler } from 'react-native';
+import { NavigationActions } from 'react-navigation';
+import store from './src/redux/store';
+import AppViewContainer from './src/modules/AppViewContainer';
 
-export default class carteiraVacinacao extends Component {
+class carteiraVacinacaoApp extends Component {
+  componentWillMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.navigateBack);
+  }
+
+  navigateBack() {
+    const navigatorState = store.getState().get('navigatorState');
+
+    const currentStackScreen = navigatorState.get('index');
+    const currentTab = navigatorState.getIn(['routes', 0, 'index']);
+
+    if (currentTab !== 0 || currentStackScreen !== 0) {
+      store.dispatch(NavigationActions.back());
+      return true;
+    }
+
+    // otherwise let OS handle the back button action
+    return false;
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
+      <Provider store={store}>
+        <AppViewContainer />
+      </Provider>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
 
-AppRegistry.registerComponent('carteiraVacinacao', () => carteiraVacinacao);
+AppRegistry.registerComponent('carteiraVacinacao', () => carteiraVacinacaoApp);

@@ -9,6 +9,7 @@ import {
 import { ApplicationStyles, Colors } from '../../components/Themes';
 import { MENINO, MENINA } from '../../model/bebe';
 import I18n from '../../i18n/i18n';
+import DatePicker from 'react-native-datepicker';
 
 class NovoBebeView extends Component {
 
@@ -47,6 +48,7 @@ class NovoBebeView extends Component {
     showPicker = async (stateKey, options) => {
         try {
             const newState = {};
+            /*
             const { action, year, month, day } = await DatePickerAndroid.open(options);
             if (action === DatePickerAndroid.dismissedAction) {
                 this.props.action.attrBebeDataNascimento(null);
@@ -54,6 +56,9 @@ class NovoBebeView extends Component {
                 const date = new Date(year, month, day);
                 this.props.actions.attrBebeDataNascimento(date);
             }
+            */
+            const date = new Date();
+            this.props.actions.attrBebeDataNascimento(date);
             this.setState(newState);
         } catch ({ code, message }) {
             console.warn(`Error in example '${stateKey}': `, message);
@@ -131,12 +136,16 @@ class NovoBebeView extends Component {
                                     </Item>
                                     <Item label="Wallet">
                                         <Label>{I18n.t('novoBebe.datanascimento')}</Label>
-                                        <TouchableWithoutFeedback onPress={this.showPicker.bind(this, 'preset', { date: this.props.bebe.dataNascimento || new Date() })}>
-                                            <View style={[ApplicationStyles.screen.rightContainer, { paddingRight: '5%' }]}>
-                                                <MaterialIcons name='today' size={30} color={Colors.belizeHole} />
-                                                <Text>{this.dataNascimentoString()}</Text>
-                                            </View>
-                                        </TouchableWithoutFeedback>
+                                        <DatePicker
+                                                style={{width: 200}}
+                                                date={this.props.bebe.dataNascimento}
+                                                mode="date"
+                                                placeholder="placeholder"
+                                                format="YYYY-MM-DD"
+                                                confirmBtnText="Confirmar"
+                                                cancelBtnText="Cancelar"
+                                                onDateChange={(date) => {this.setState({date: { date: this.props.bebe.dataNascimento || new Date() }});}}
+                                        />
 
                                     </Item>
 
