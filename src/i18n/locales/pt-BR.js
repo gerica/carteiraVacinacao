@@ -12,7 +12,7 @@ export default {
         salvar: 'Salvar'
     },
     dashboard: {
-        title: 'Carteira do'
+        title: 'Carteira do vacinação'
     },
     vacina: {
         novaVacina: 'Nova Vacina',

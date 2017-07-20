@@ -1,23 +1,17 @@
-import { Map, List } from 'immutable';
-import Bebe from '../../../model/bebe';
-import Vacina from '../../../model/vacina';
+import { Map } from 'immutable';
 import BebeDao from '../../../dao/BebeDao';
-import * as vacinaService from '../../../services/vacina/VacinaService';
 
 const dao = new BebeDao();
 
 // Initial state
 const initialState = Map({
     message: '',
-    bebe: null,
-    vacina: null
+    bebeVacinar: null,
 });
 
 // Actions
 const RESET = 'HomeState/RESET';
-const ATTR_BEBE = 'HomeState/ATTR_BEBE';
-const ATTR_VACINA = 'HomeState/ATTR_VACINA';
-const ATTR_BEBE_VACINA_DATA_APLICACAO = 'HomeState/ATTR_BEBE_VACINA_DATA_APLICACAO';
+const ATTR_BEBE_VACINAR = 'HomeState/ATTR_BEBE_VACINAR';
 
 // Action creators
 export function onReset() {
@@ -29,19 +23,13 @@ export function init() {
         dispatch(onReset());
     };
 }
-export function attrBebe(value) {
+export function attrBebeVacinar(value) {
     return {
-        type: ATTR_BEBE,
+        type: ATTR_BEBE_VACINAR,
         payload: value
     };
 }
-export function attrVacina(value) {
-    return {
-        type: ATTR_VACINA,
-        payload: value
-    };
-}
-export function attrBebeVacinaDataAplicacao(bebe, value) {
+export function attrBebeVacinaDataAplicacao(bebe, value, actionsSession) {
     return (dispatch) => {
         dao.find().then((result) => {
             const findBebe = b => b.nome === bebe.nome;
@@ -64,11 +52,14 @@ export function attrBebeVacinaDataAplicacao(bebe, value) {
                 novaLista.splice(indexBebes, 1);
                 novaLista.splice(indexBebes, 0, antigoBebe);
 
-                dao.save(novaLista).then(() => dispatch(attrBebe(antigoBebe)));
+                dao.save(novaLista).then(() => {
+                    dispatch(attrBebeVacinar(antigoBebe));
+                    dispatch(actionsSession.attrBebe(antigoBebe));
+                });
             }
         });
         // dispatch({
-        //     type: ATTR_BEBE_VACINA_DATA_APLICACAO,
+        //     type: ATTR_BEBE_VACINAR_VACINA_DATA_APLICACAO,
         //     value: novaListaVacina,
         // });
     };
@@ -80,12 +71,8 @@ export default function DashboradStateReducer(state = initialState, action) {
 
         case RESET:
             return initialState;
-        case ATTR_BEBE:
-            return state.update('bebe', () => action.payload);
-        case ATTR_VACINA:
-            return state.update('vacina', () => action.payload);
-        case ATTR_BEBE_VACINA_DATA_APLICACAO:
-            return state.updateIn(['bebe', 'vacinas'], () => action.payload);
+        case ATTR_BEBE_VACINAR:
+            return state.update('bebeVacinar', () => action.payload);
 
         default:
             return state;

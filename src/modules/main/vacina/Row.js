@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableHighlight } from 'react-native';
+import { View, Text, TouchableWithoutFeedback } from 'react-native';
 import {
     Left, CardItem, Body, Card, Thumbnail, Right
 } from 'native-base';
@@ -11,9 +11,8 @@ import Imagens from '../../../utils/image/Imagens';
 const Row = (props) => (
     <View >
         <View>
-            <TouchableHighlight
+            <TouchableWithoutFeedback
                 onPress={props.onPress}
-                underlayColor={Colors.white}
             >
                 <View>
                     <Card>
@@ -45,7 +44,7 @@ const Row = (props) => (
                         </CardItem>
                     </Card>
                 </View>
-            </TouchableHighlight>
+            </TouchableWithoutFeedback>
         </View>
     </View >
 );

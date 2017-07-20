@@ -6,9 +6,10 @@ import * as SessionActions from '../../session/SessionState';
 import * as VacinaActions from './VacinaState';
 
 const mapStateToProps = (reducer) => {
-    // const session = reducer.get('session').toJS();
+    const session = reducer.get('session').toJS();
     const state = reducer.get('vacinaState').toJS();
-    const { message, bebe } = state;
+    const { bebe } = session;
+    const { message } = state;
     return { message, bebe };
 };
 

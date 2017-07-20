@@ -79,7 +79,7 @@ export function attrBebeSexo(value) {
     };
 }
 // Action creators
-export function save(bebe, navigate) {
+export function save(bebe, navigation) {
     return (dispatch) => {
         dispatch(attrOnLoading(true));
         dao.find().then((value) => {
@@ -101,7 +101,7 @@ export function save(bebe, navigate) {
 
             novoBebe.vacinas = List(vacinaService.calcProximaData(bebe, vacinas));
             list.push(novoBebe);
-            dao.save(list).then(() => navigate('Home'));
+            dao.save(list).then(() => navigation.navigate('Main'));
         });
     };
 }

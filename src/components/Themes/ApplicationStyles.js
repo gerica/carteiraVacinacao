@@ -33,7 +33,7 @@ const ApplicationStyles = {
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            borderBottomWidth: 1
+            // borderBottomWidth: 1
         },
         rowCenter: {
             flexDirection: 'row',
@@ -78,11 +78,12 @@ const ApplicationStyles = {
             // backgroundColor: 'transparent',
             backgroundColor: Colors.button,
             opacity: 0.8,
-            borderColor: Colors.bar,
-            borderWidth: 1,
-            margin: 1,
-            marginVertical: 3,
-            marginHorizontal: 10,
+            // borderColor: Colors.bar,
+            // borderWidth: 1,
+            // margin: 1,
+            // marginVertical: 3,
+            // marginHorizontal: 10,
+            // width: 150,
         },
         textWhite: {
             ...Fonts.style.normal,

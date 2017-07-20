@@ -3,6 +3,7 @@ import { Map } from 'immutable';
 const RESET_STATE = 'SessionState/RESET';
 const INITIALIZE_STATE = 'SessionState/INITIALIZE';
 const ATTR_MESSAGE = 'SessionState/ATTR_MESSAGE';
+const ATTR_BEBE = 'SessionState/ATTR_BEBE';
 
 //Exemplo de como export function para o bindActionCreators
 export const exemple = banner => {
@@ -15,6 +16,7 @@ export const exemple = banner => {
 const initialState = Map({
   isReady: false,
   message: '',
+  bebe: null
 });
 
 export function resetSessionStateFromSnapshot(state) {
@@ -36,6 +38,12 @@ export function setMessage(value) {
     payload: value
   };
 }
+export function attrBebe(value) {
+  return {
+    type: ATTR_BEBE,
+    payload: value
+  };
+}
 
 
 // Reducer
@@ -47,6 +55,8 @@ export default function SessionStateReducer(state = initialState, action = {}) {
       return state.set('isReady', true);
     case ATTR_MESSAGE:
       return state.update('message', () => action.payload);
+    case ATTR_BEBE:
+      return state.update('bebe', () => action.payload);
 
     default:
       return state;

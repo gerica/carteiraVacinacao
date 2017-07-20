@@ -33,9 +33,7 @@ class NovoBebeView extends Component {
         return bebe.sexo === value;
     }
     onNovo() {
-        const { navigate } = this.props.navigation;
-        // navigate('Sigunp');
-        this.props.actions.save(this.props.bebe, navigate);
+        this.props.actions.save(this.props.bebe, this.props.navigation);
     }
     dataNascimentoString() {
         const { bebe } = this.props;
