@@ -1,3 +1,4 @@
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { NavigationActions } from 'react-navigation';
@@ -6,11 +7,10 @@ import * as SessionActions from '../../session/SessionState';
 import * as VacinaActions from './VacinaState';
 
 const mapStateToProps = (reducer) => {
-    const session = reducer.get('session').toJS();
+    // const session = reducer.get('session').toJS();
     const state = reducer.get('vacinaState').toJS();
-    const { bebe } = session;
-    const { message, bebeVacinar } = state;
-    return { message, bebe, bebeVacinar };
+    const { message, bebe } = state;
+    return { message, bebe };
 };
 
 const init = dispatch => ({

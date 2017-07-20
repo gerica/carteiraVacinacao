@@ -8,11 +8,10 @@ import * as DashboardActions from './dashboard/DashboardState';
 import * as VacinaActions from './vacina/VacinaState';
 
 const mapStateToProps = (reducer) => {
-    const session = reducer.get('session').toJS();
+    // const session = reducer.get('session').toJS();
     const state = reducer.get('mainState').toJS();
-    const { bebe } = session;
-    const { message, bebes } = state;
-    return { message, bebe, bebes };
+    const { message, bebe } = state;
+    return { message, bebe };
 };
 
 const init = dispatch => ({

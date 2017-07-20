@@ -32,7 +32,7 @@ class HomeView extends Component {
         const { navigate } = this.props.navigation;
         navigate('Main', { bebe });
     }
-    
+
     onTabVacina(bebe) {
         this.props.actionsSession.attrBebe(bebe);
         this.refs.tabsVeiw.goToPage(1);
@@ -82,7 +82,7 @@ class HomeView extends Component {
 
     renderHome() {
         return (
-            <View style={[ApplicationStyles.screen.mainContainer, ApplicationStyles.screen.centerContainer]}>
+            <View style={[ApplicationStyles.screen.centerContainer]}>
                 {this.renderButtonBebes()}
             </View>
         );
@@ -127,8 +127,8 @@ class HomeView extends Component {
                 </Header>
                 <View>
                     <Image source={this.imagens.elefante} style={styles.image} >
-                    </Image>
                         {this.renderHome()}
+                    </Image>
                     {/* <Grid style={styles.grid}>
                         <Col>
                             {this.renderHome()}

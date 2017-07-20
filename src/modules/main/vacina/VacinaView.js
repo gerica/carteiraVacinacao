@@ -17,7 +17,6 @@ class VacinaView extends Component {
     onVacinar() {
         const { navigate } = this.props.navigation;
         const { bebe } = this.props;
-        this.props.actions.attrBebeVacinar(bebe);
         navigate('RealizarVacina', { bebe });
     }
     onNovo() {
@@ -79,11 +78,7 @@ class VacinaView extends Component {
         );
     }
     render() {
-        const { bebe } = this.props;
-        if (!bebe) {
-            return null;
-        }
-        console.log(bebe);
+        console.log(this.props);
         return (
             <Container style={ApplicationStyles.screen.mainContainer}>
                 <Content>
@@ -124,4 +119,3 @@ const styles = StyleSheet.create({
 });
 
 export default VacinaView;
-

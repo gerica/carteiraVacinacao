@@ -33,7 +33,9 @@ class NovoBebeView extends Component {
         return bebe.sexo === value;
     }
     onNovo() {
-        this.props.actions.save(this.props.bebe, this.props.navigation);
+        const { navigate } = this.props.navigation;
+        // navigate('Sigunp');
+        this.props.actions.save(this.props.bebe, navigate);
     }
     dataNascimentoString() {
         const { bebe } = this.props;
@@ -188,4 +190,3 @@ const styles = {
 };
 
 export default NovoBebeView;
-
