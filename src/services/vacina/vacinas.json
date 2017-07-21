@@ -69,14 +69,7 @@
             "nome": "VORH (Vacina Oral de Rotavírus Humano)",
             "doses": "2ª dose",
             "doencasEvitadas": "Diarreia por Rotavírus"
-        },
-        {
-            "id": 11,
-            "idade": "4 meses",
-            "nome": "VORH (Vacina Oral de Rotavírus Humano)",
-            "doses": "2ª dose",
-            "doencasEvitadas": "Diarreia por Rotavírus"
-        },
+        },        
         {
             "id": 12,
             "idade": "4 meses",

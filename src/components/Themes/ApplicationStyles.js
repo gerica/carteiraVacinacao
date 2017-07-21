@@ -30,6 +30,7 @@ const ApplicationStyles = {
             // borderWidth: 1
         },
         centerContainer: {
+            flex: 1,
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
@@ -67,7 +68,7 @@ const ApplicationStyles = {
         textStyleSuccess: {
             fontSize: 20,
             alignSelf: 'center',
-            color: '#ffffff'
+            color: Colors.white,
         },
         textStyleWarning: {
             fontSize: 20,
@@ -83,12 +84,12 @@ const ApplicationStyles = {
             // margin: 1,
             // marginVertical: 3,
             // marginHorizontal: 10,
-            // width: 150,
+            width: '100%',
         },
         textWhite: {
             ...Fonts.style.normal,
             color: Colors.white,
-        }
+        },        
 
     },
     header: {

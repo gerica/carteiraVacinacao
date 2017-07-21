@@ -2,7 +2,7 @@ export default {
     home: {
         title: 'Carteira de Saúde',
         novo: 'Novo Bebe',
-        footer: 'App',
+        footer: 'Saúde do bebe',
     },
     novoBebe: {
         title: 'Carteira de Saúde',
@@ -17,5 +17,11 @@ export default {
     vacina: {
         novaVacina: 'Nova Vacina',
         realizarVacinaTitle: 'Vacinar',
+    },
+    historico: {
+        title: 'Histórico'
+    },
+    descricaoVacina: {
+        title: 'Descrição da vacina'
     }
 };

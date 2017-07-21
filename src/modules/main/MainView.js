@@ -62,12 +62,12 @@ class Dashboard extends Component {
                     </Header>
                     <Tabs initialPage={0} tabBarPosition={'bottom'}>
                         <Tab heading={<TabHeading><Icon name="home" /></TabHeading>}>
-                            <DashboardViewContainer />
-                        </Tab>
-                        <Tab heading={<TabHeading><Icon name="book" /></TabHeading>}>
                             <VacinaViewContainer navigation={this.props.navigation} />
                         </Tab>
-                        <Tab heading={<TabHeading><Icon name="medkit" /></TabHeading>}>
+                        <Tab heading={<TabHeading><Icon name="book" /></TabHeading>}>
+                            <DashboardViewContainer />
+                        </Tab>
+                        {/* <Tab heading={<TabHeading><Icon name="medkit" /></TabHeading>}>
                             <Text>
                                 Remédio
                             </Text>
@@ -76,7 +76,7 @@ class Dashboard extends Component {
                             <Text>
                                 Crescimento
                             </Text>
-                        </Tab>
+                        </Tab> */}
                     </Tabs>
 
                 </Container>

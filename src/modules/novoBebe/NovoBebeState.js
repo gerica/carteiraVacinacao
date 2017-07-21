@@ -86,7 +86,7 @@ export function save(bebe, navigate) {
             let list;
 
             if (!value) {
-                list = List();
+                list = [];
             } else {
                 list = value;
                 const findBebe = b => b.nome === bebe.nome;
@@ -101,6 +101,7 @@ export function save(bebe, navigate) {
 
             novoBebe.vacinas = List(vacinaService.calcProximaData(bebe, vacinas));
             list.push(novoBebe);
+            console.log(list);
             dao.save(list).then(() => navigate('Home'));
         });
     };

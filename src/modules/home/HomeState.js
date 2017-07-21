@@ -21,7 +21,7 @@ export function onReset() {
 export function init() {
     return (dispatch) => {
         dispatch(onReset());
-        dao.find().then((value) => {
+        dao.find().then((value) => {            
             dispatch(attrBebes(value));
         });
     };

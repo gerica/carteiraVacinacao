@@ -82,6 +82,11 @@ export function getProximas(bebe) {
     const result = bebe.vacinas.filter(filterProxima);
     return result;
 }
+export function getHistorico(bebe) {
+    const filterProxima = e => e.dataAplicacao;
+    const result = bebe.vacinas.filter(filterProxima);
+    return result;
+}
 
 export function criarVacina(dado) {
     const vacina = new Vacina();
@@ -89,7 +94,7 @@ export function criarVacina(dado) {
     vacina.idade = dado.idade;
     vacina.nome = dado.nome;
     vacina.doses = dado.doses;
-    vacina.doencasEvitadas = dado.idade;
+    vacina.doencasEvitadas = dado.doencasEvitadas;
     vacina.opcional = dado.opcional || false;
     vacina.somenteMenina = dado.somenteMenina || false;
     return vacina;

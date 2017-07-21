@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, ListView, StyleSheet, TouchableHighlight, ScrollView } from 'react-native';
+import { View, ListView, StyleSheet, ScrollView } from 'react-native';
 import {
-    Container, Content, CardItem, Body, Card, Button,
-    Thumbnail, Right, Left, Header, Icon, Title
+    Container, Content, Body, Button,
+    Right, Left, Header, Icon, Title
 } from 'native-base';
-import moment from 'moment';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import { ApplicationStyles, Colors } from '../../../components/Themes';
 import * as vacinaServices from '../../../services/vacina/VacinaService';
 import Row from './Row';
-import Imagens from '../../../utils/image/Imagens';
 import I18n from '../../../i18n/i18n';
 
 class RealizarVacinaView extends Component {
@@ -20,6 +18,10 @@ class RealizarVacinaView extends Component {
     onVacinar(rowData) {
         // console.log(rowData);
         this.props.actions.attrBebeVacinaDataAplicacao(this.props.bebe, rowData);
+    }
+    onDescricaoVacina(vacina) {
+        const { navigate } = this.props.navigation;        
+        navigate('DescricaoVacina', { vacina });
     }
     onNovo() {
 
@@ -41,6 +43,7 @@ class RealizarVacinaView extends Component {
                 renderRow={(rowData) =>
                     <Row
                         onPress={this.onVacinar.bind(this, rowData)}
+                        onPressDesc={this.onDescricaoVacina.bind(this, rowData)}
                         {...rowData}
                     />}
                 renderSeparator={
@@ -49,8 +52,7 @@ class RealizarVacinaView extends Component {
             />
         );
     }
-    render() {
-        console.log(this.props);
+    render() {        
         return (
             <ScrollView>
                 <Container style={ApplicationStyles.screen.mainContainer}>

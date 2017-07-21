@@ -9,44 +9,41 @@ import { Colors } from '../../../components/Themes';
 import Imagens from '../../../utils/image/Imagens';
 
 const Row = (props) => (
-    <View >
-        <View>
-            <TouchableWithoutFeedback
-                onPress={props.onPress}
-            >
-                <View>
-                    <Card>
-                        <CardItem>
-                            <Left>
-                                <Thumbnail source={new Imagens().getKitSaude3().injecao} />
-                                <Body>
-                                    <Text>Próxima Vacina</Text>
-                                    <Text>{props.nome}</Text>
-                                    <Text note>{moment(props.dataPrevista).format('DD-MM-YYYY')}</Text>
-                                </Body>
-                            </Left>
-                            <Right>
-                                {
-                                    props.dataAplicacao === undefined || props.dataAplicacao === null
-                                        ?
-                                        <IconIonicons
-                                            name="md-square-outline"
-                                            size={20} color={Colors.logo}
-                                        />
-                                        :
-                                        <IconIonicons
-                                            name="md-checkbox-outline"
-                                            size={20} color={Colors.logo}
-                                        />
-                                }
+    <View>
+        <Card>
+            <CardItem>
+                <TouchableWithoutFeedback onPress={props.onPressDesc}>
+                    <Left>
+                        <Thumbnail source={new Imagens().getKitSaude3().injecao} />
+                        <Body>
+                            <Text>Próxima Vacina</Text>
+                            <Text>{props.nome}</Text>
+                            <Text note>{moment(props.dataPrevista).format('DD-MM-YYYY')}</Text>
+                        </Body>
+                    </Left>
+                </TouchableWithoutFeedback>
+                <TouchableWithoutFeedback onPress={props.onPress}>
+                    <Right>
+                        {
+                            props.dataAplicacao === undefined || props.dataAplicacao === null
+                                ?
+                                <IconIonicons
+                                    name="md-square-outline"
+                                    size={20} color={Colors.logo}
+                                />
+                                :
+                                <IconIonicons
+                                    name="md-checkbox-outline"
+                                    size={20} color={Colors.logo}
+                                />
+                        }
 
-                            </Right>
-                        </CardItem>
-                    </Card>
-                </View>
-            </TouchableWithoutFeedback>
-        </View>
-    </View >
+                    </Right>
+                </TouchableWithoutFeedback>
+            </CardItem>
+        </Card>
+    </View>
+
 );
 
 export default Row;

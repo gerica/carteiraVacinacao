@@ -1,4 +1,4 @@
-// KIT SAUDE 2
+// KIT SAUDE 3
 // const abservente = require('../../../resources/img/kit_saude_3/absorvente.jpg');
 const calendario = require('../../../resources/img/kit_saude_3/calendario.jpg');
 const coracao = require('../../../resources/img/kit_saude_3/coracao.jpg');

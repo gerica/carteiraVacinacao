@@ -32,6 +32,7 @@ export default class BebeDao {
      */
     async persist(state) {
         try {
+            // console.log(JSON.stringify(state));
             await AsyncStorage.setItem(STATE_STORAGE_KEY, JSON.stringify(state));
         } catch (e) {
             console.error('Error persisting application state', e);
