@@ -10,6 +10,7 @@ import * as vacinaServices from '../../../services/vacina/VacinaService';
 import Row from './Row';
 import Imagens from '../../../utils/image/Imagens';
 import I18n from '../../../i18n/i18n';
+import { MENINA } from '../../../model/bebe';
 
 class VacinaView extends Component {
 
@@ -23,6 +24,18 @@ class VacinaView extends Component {
     }
     onNovo() {
 
+    }
+    getStyleBebe() {
+        if (this.props.bebe.sexo === MENINA) {
+            return {
+                ...ApplicationStyles.style.screen.mainContainer,
+                backgroundColor: Colors.menina.c3,
+            };
+        }
+        return {
+            ...ApplicationStyles.style.screen.mainContainer,
+            backgroundColor: Colors.menino.c1,
+        };
     }
     renderCardsProximaVacinasList() {
         const proximaVacina = vacinaServices.getProximas(this.props.bebe);
@@ -66,7 +79,7 @@ class VacinaView extends Component {
                 <Card>
                     <CardItem>
                         <Left>
-                            <Thumbnail source={new Imagens().getKitSaude3().injecao} />
+                            <Thumbnail source={Imagens.getKitSaude3().injecao} />
                             <Body>
                                 <Text>Próxima Vacina - {dataPrevista}</Text>
                                 <View>
@@ -120,16 +133,13 @@ class VacinaView extends Component {
         );
     }
     render() {
-        console.log(this.props);
         return (
-            <Container style={ApplicationStyles.screen.mainContainer}>
+            <Container style={this.getStyleBebe()}>
                 <Content>
-
                     {this.renderCardsProximaVacinas()}
                     {this.renderCardHistorico()}
-
-                    {/* <Button rounded block style={ApplicationStyles.screen.buttonDefault1} onPress={this.onNovo.bind(this)}>
-                        <Text style={ApplicationStyles.screen.textWhite}>{I18n.t('vacina.novaVacina')}</Text>
+                    {/* <Button rounded block style={ApplicationStyles.style.screen.buttonDefault1} onPress={this.onNovo.bind(this)}>
+                        <Text style={ApplicationStyles.style.screen.textWhite}>{I18n.t('vacina.novaVacina')}</Text>
                     </Button> */}
                 </Content>
             </Container>

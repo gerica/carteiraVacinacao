@@ -1,11 +1,39 @@
 import Colors from './Colors';
 import Fonts from './Fonts';
 
-const ApplicationStyles = {
+const padrao = {
+    botaoPadrao: {
+        opacity: 1,
+        width: '100%',
+        backgroundColor: Colors.yellow5,
+    },
+    textNovoBebe: {
+        ...Fonts.style.normal,
+        color: Colors.button,
+    },
+    textStyleError: {
+        fontSize: 20,
+        alignSelf: 'center',
+        color: '#ed7375'
+    },
+    textStyleSuccess: {
+        fontSize: 20,
+        alignSelf: 'center',
+        color: Colors.white,
+    },
+    textStyleWarning: {
+        fontSize: 20,
+        alignSelf: 'center',
+        color: Colors.sunFlower
+    },
+};
+
+
+const style = {
     screen: {
         mainContainer: {
             flex: 1,
-            backgroundColor: Colors.background
+            // backgroundColor: Colors.background
         },
         circleLogo: {
             backgroundColor: 'transparent',
@@ -60,116 +88,23 @@ const ApplicationStyles = {
             borderBottomWidth: 0,
             // borderWidth: 1
         },
-        textStyleError: {
-            fontSize: 20,
-            alignSelf: 'center',
-            color: '#ed7375'
+        botaoMenino: {
+            ...padrao.botaoPadrao,
+            backgroundColor: Colors.menino.c26,
         },
-        textStyleSuccess: {
-            fontSize: 20,
-            alignSelf: 'center',
-            color: Colors.white,
+        botaoMenina: {
+            ...padrao.botaoPadrao,
+            backgroundColor: Colors.menina.c8,
         },
-        textStyleWarning: {
-            fontSize: 20,
-            alignSelf: 'center',
-            color: Colors.sunFlower
-        },
-        buttonDefault1: {
-            // backgroundColor: 'transparent',
-            backgroundColor: Colors.button,
-            opacity: 0.8,
-            // borderColor: Colors.bar,
-            // borderWidth: 1,
-            // margin: 1,
-            // marginVertical: 3,
-            // marginHorizontal: 10,
-            width: '100%',
-        },
+
         textWhite: {
-            ...Fonts.style.normal,
+            ...Fonts.style.normalBold,
             color: Colors.white,
-        },        
-
-    },
-    header: {
-        circleLogo: {
-            backgroundColor: 'transparent',
-            width: 20,
-            height: 20,
-            borderRadius: 100 / 2,
-            alignItems: 'center',
-            borderWidth: 1,
-            borderColor: Colors.borderLogo,
-            flexDirection: 'column',
-            justifyContent: 'center',
-        },
-        textLogo: {
-            ...Fonts.style.normal,
-            color: '#FFFFFF',
-            fontWeight: 'bold',
-            marginRight: '10%'
-        },
-        navBar: {
-            height: 60,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-        },
-        title: {
-            ...Fonts.style.h4,
-            color: Colors.headerTitle,
-            fontWeight: 'bold'
         },
 
     },
-    menu: {
-        circleMenu: {
-            backgroundColor: Colors.circleMenu,
-            width: 24,
-            height: 24,
-            borderRadius: 100 / 2,
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-        }
-    },
-    footer: {
-        leftContainerColor: {
-            flex: 1,
-            flexDirection: 'row',
-            justifyContent: 'flex-start',
-            backgroundColor: Colors.textGreen,
-            margin: 1,
-            // borderWidth: 1
-        },
-        rightContainerColor: {
-            flex: 1,
-            margin: 1,
-            flexDirection: 'row',
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-            backgroundColor: Colors.textGreen,
-            // borderWidth: 1
-        },
-        centerContainer: {
-            width: '100%',
-            height: 35,
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            // borderWidth: 1,
-        },
-        buttonStyle: {
-            width: 60,
-            height: 35,
-            margin: 5,
-            backgroundColor: Colors.textGreen
-        },
-        textStyle: {
-            ...Fonts.style.noramlCenter,
-        }
-    }
+    header: {},
+    footer: {}
 };
 
-export default ApplicationStyles;
+export default { style, padrao };

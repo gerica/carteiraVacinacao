@@ -18,23 +18,28 @@ const soro = require('../../../resources/img/kit_saude_3/soro.jpg');
 
 export default class KitSaude3 {
     // abservente = abservente;
-    calendario = calendario;
-    curativo = curativo;
-    dente = dente;
-    dna = dna;
-    enfermeira = enfermeira;
-    estetoscopio = estetoscopio;
-    exame = exame;
-    injecao = injecao;
-    malaMedico = malaMedico;
-    medico = medico;
-    receita = receita;
-    remedio = remedio;
-    remedioPote = remedioPote;
-    soro = soro;
-    coracao = coracao;
+    static calendario = calendario;
+    static curativo = curativo;
+    static dente = dente;
+    static dna = dna;
+    static enfermeira = enfermeira;
+    static estetoscopio = estetoscopio;
+    static exame = exame;
+    static injecao = injecao;
+    static malaMedico = malaMedico;
+    static medico = medico;
+    static receita = receita;
+    static remedio = remedio;
+    static remedioPote = remedioPote;
+    static soro = soro;
+    static coracao = coracao;
 
-    getImgRandom() {
+
+    constructor() {
+        throw new Error('Esta classe não deve ser instanciada, pois seu métodos são estáticos');
+    }
+
+    static getImgRandom() {
         const max = Object.values(this).length - 1;
         const min = 0;
         const range = max - min;
@@ -42,7 +47,7 @@ export default class KitSaude3 {
         const i = Math.floor(Math.random() * (range + 1)) + min;
         return Object.values(this)[i];
     }
-    getForIndex(i) {
+    static getForIndex(i) {
         return Object.values(this)[i];
     }
 }

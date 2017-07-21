@@ -13,16 +13,7 @@ import I18n from '../../i18n/i18n';
 class NovoBebeView extends Component {
 
     static navigationOptions = {
-        header: null,
-        // drawerLabel: 'Novo Bebe',
-        // drawerIcon: () => (
-        //     <View style={ApplicationStyles.menu.circleMenu}>
-        //         <IconEntypo
-        //             name="new-message"
-        //             size={13} color={Colors.logo}
-        //         />
-        //     </View>
-        // ),
+        header: null,        
     };
 
     componentWillMount() {
@@ -60,7 +51,7 @@ class NovoBebeView extends Component {
         }
     };
     styleValid() {
-        const style = ApplicationStyles.screen.buttonDefault1;
+        const style = ApplicationStyles.padrao.botaoPadrao;
         if (!this.isFormFill()) {
             style.opacity = 0.4;
         } else {
@@ -86,7 +77,7 @@ class NovoBebeView extends Component {
         }
         return (
             <ScrollView>
-                <Container>
+                <Container style={{ backgroundColor: Colors.background }}>
                     <Header style={{ backgroundColor: Colors.headerBackgroud }}>
                         <Left>
                             <Button
@@ -103,8 +94,8 @@ class NovoBebeView extends Component {
                         </Body>
                     </Header>
                     <Content style={{ padding: 1 }}>
-                        <View style={[ApplicationStyles.screen.marginJusiify, ApplicationStyles.screen.rowCenter]}>
-                            <Text style={ApplicationStyles.screen.textStyleWarning}>
+                        <View style={[ApplicationStyles.style.screen.marginJusiify, ApplicationStyles.style.screen.rowCenter]}>
+                            <Text style={ApplicationStyles.style.screen.textStyleWarning}>
                                 {this.props.message}
                             </Text>
                         </View>
@@ -132,7 +123,7 @@ class NovoBebeView extends Component {
                                     <Item label="Wallet">
                                         <Label>{I18n.t('novoBebe.datanascimento')}</Label>
                                         <TouchableWithoutFeedback onPress={this.showPicker.bind(this, 'preset', { date: this.props.bebe.dataNascimento || new Date() })}>
-                                            <View style={[ApplicationStyles.screen.rightContainer, { paddingRight: '5%' }]}>
+                                            <View style={[ApplicationStyles.style.screen.rightContainer, { paddingRight: '5%' }]}>
                                                 <MaterialIcons name='today' size={30} color={Colors.belizeHole} />
                                                 <Text>{this.dataNascimentoString()}</Text>
                                             </View>
@@ -171,7 +162,7 @@ class NovoBebeView extends Component {
                                     style={this.styleValid()}
                                     onPress={this.onNovo.bind(this)}
                                 >
-                                    <Text style={ApplicationStyles.screen.textWhite}>{I18n.t('novoBebe.salvar')}</Text>
+                                    <Text style={ApplicationStyles.padrao.textNovoBebe}>{I18n.t('novoBebe.salvar')}</Text>
                                 </Button>
                             </Col>
                         </Grid>

@@ -47,6 +47,11 @@ const style = {
         fontFamily: type.base,
         fontSize: size.regular
     },
+    normalBold: {
+        fontFamily: type.bold,
+        fontWeight: 'bold',
+        fontSize: size.regular
+    },
     noramlCenter: {
         fontFamily: type.base,
         fontSize: size.medium,

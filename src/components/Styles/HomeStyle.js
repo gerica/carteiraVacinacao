@@ -1,7 +1,8 @@
 import { ApplicationStyles, Colors, Fonts } from '../Themes';
 
-const HomeStyles = {
-    ...ApplicationStyles,
+const style = {
+    ...ApplicationStyles.style,
+    ...ApplicationStyles.padrao,
     containerBotaoBebe: {
         height: 50,
         width: '45%',
@@ -9,15 +10,9 @@ const HomeStyles = {
         // borderWidth: 1
     },
     botaoNovoBebe: {
-        ...ApplicationStyles.screen.buttonDefault1,
+        ...ApplicationStyles.padrao.botaoPadrao,
         backgroundColor: Colors.yellow5,
-
     },
-    textNovoBebe: {
-        ...Fonts.style.normal,
-        color: Colors.button,
-    },
-
 };
 
-export default HomeStyles;
+export default { style };

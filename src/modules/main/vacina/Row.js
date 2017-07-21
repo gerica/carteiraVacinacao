@@ -14,7 +14,7 @@ const Row = (props) => (
             <CardItem>
                 <TouchableWithoutFeedback onPress={props.onPressDesc}>
                     <Left>
-                        <Thumbnail source={new Imagens().getKitSaude3().injecao} />
+                        <Thumbnail source={Imagens.getKitSaude3().i} />
                         <Body>
                             <Text>Próxima Vacina</Text>
                             <Text>{props.nome}</Text>

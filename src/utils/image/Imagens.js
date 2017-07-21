@@ -18,24 +18,28 @@ const sapatoMenina = require('../../../resources/img/sapato_menina.jpg');
 const sapatoMenino = require('../../../resources/img/sapato_menino.jpg');
 
 export default class Imagens {
-    chegada = chegada;
-    closeUpFather = closeUpFather;
-    cute = cute;
-    enfermeira = enfermeira;
-    elefante = elefante;
-    fundo = fundo;
-    fundo2 = fundo2;
-    gravida = gravida;
-    livroArvore = livroArvore;
-    malaVacina = malaVacina;
-    meninoMenina = meninoMenina;
-    sapatoMadeira = sapatoMadeira;
-    sapatoMenina = sapatoMenina;
-    sapatoMenino = sapatoMenino;
-    ovos = ovos;
-    coracao = coracao;
+    static chegada = chegada;
+    static closeUpFather = closeUpFather;
+    static cute = cute;
+    static enfermeira = enfermeira;
+    static elefante = elefante;
+    static fundo = fundo;
+    static fundo2 = fundo2;
+    static gravida = gravida;
+    static livroArvore = livroArvore;
+    static malaVacina = malaVacina;
+    static meninoMenina = meninoMenina;
+    static sapatoMadeira = sapatoMadeira;
+    static sapatoMenina = sapatoMenina;
+    static sapatoMenino = sapatoMenino;
+    static ovos = ovos;
+    static coracao = coracao;
 
-    getImgRandom() {
+    constructor() {
+        throw new Error('Esta classe não deve ser instanciada, pois seu métodos são estáticos');
+    }
+
+    static getImgRandom() {
         const max = Object.values(this).length - 1;
         const min = 0;
         const range = max - min;
@@ -43,10 +47,10 @@ export default class Imagens {
         const i = Math.floor(Math.random() * (range + 1)) + min;
         return Object.values(this)[i];
     }
-    getForIndex(i) {
+    static getForIndex(i) {
         return Object.values(this)[i];
     }
-    getKitSaude3() {
-        return new KitSaude3();
+    static getKitSaude3() {
+        return KitSaude3;
     }
 }    

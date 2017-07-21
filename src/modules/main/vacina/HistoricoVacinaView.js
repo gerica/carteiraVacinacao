@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { View, ListView, StyleSheet, ScrollView } from 'react-native';
-import { Body, Button, Left, Header, Icon, Title } from 'native-base';
+import { Body, Button, Left, Header, Icon, Title, Footer, FooterTab } from 'native-base';
 import { ApplicationStyles, Colors } from '../../../components/Themes';
 import * as vacinaServices from '../../../services/vacina/VacinaService';
 import RowHistorico from './RowHistorico';
 import I18n from '../../../i18n/i18n';
+import { MENINA } from '../../../model/bebe';
 
 class RealizarVacinaView extends Component {
     static navigationOptions = {
@@ -13,6 +14,16 @@ class RealizarVacinaView extends Component {
     onDescricaoVacina(vacina) {
         const { navigate } = this.props.navigation;
         navigate('DescricaoVacina', { vacina });
+    }
+    getStyleBebe() {
+        if (this.props.bebe.sexo === MENINA) {
+            return {
+                backgroundColor: Colors.menina.c8,
+            };
+        }
+        return {
+            backgroundColor: Colors.menino.c8,
+        };
     }
     renderCardsHistoricos() {
         const historicoVacinas = vacinaServices.getHistorico(this.props.bebe);
@@ -38,8 +49,8 @@ class RealizarVacinaView extends Component {
     }
     render() {
         return (
-            <View style={ApplicationStyles.screen.mainContainer}>
-                <Header style={{ backgroundColor: Colors.headerBackgroud }}>
+            <View style={ApplicationStyles.style.screen.mainContainer}>
+                <Header style={this.getStyleBebe()}>
                     <Left>
                         <Button
                             transparent
@@ -57,6 +68,13 @@ class RealizarVacinaView extends Component {
                 <ScrollView>
                     {this.renderCardsHistoricos()}
                 </ScrollView>
+                <Footer>
+                    <FooterTab style={this.getStyleBebe()} >
+                        <Body>
+                            <Title>{I18n.t('home.footer')}</Title>
+                        </Body>
+                    </FooterTab>
+                </Footer>
             </View>
         );
     }

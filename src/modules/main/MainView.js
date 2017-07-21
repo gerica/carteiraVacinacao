@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-
-import { Text, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import {
     Icon, Container, Header, Button, Body, Title,
@@ -10,6 +9,7 @@ import { ApplicationStyles, Colors } from '../../components/Themes';
 import DashboardViewContainer from './dashboard/DashboardViewContainer';
 import VacinaViewContainer from './vacina/VacinaViewContainer';
 import I18n from '../../i18n/i18n';
+import { MENINA } from '../../model/bebe';
 
 class Dashboard extends Component {
     static navigationOptions = {
@@ -24,6 +24,16 @@ class Dashboard extends Component {
             this.props.actionsVacina.attrBebe(bebe);
         }
     }
+    getStyleBebe() {
+        if (this.props.bebe.sexo === MENINA) {
+            return {
+                backgroundColor: Colors.menina.c8,
+            };
+        }
+        return {
+            backgroundColor: Colors.menino.c8,
+        };
+    }
     render() {
         // console.log(this.props);
         if (this.props.onLoading || !this.props.bebe) {
@@ -31,8 +41,8 @@ class Dashboard extends Component {
         }
         return (
             <ScrollView>
-                <Container style={ApplicationStyles.screen.mainContainer}>
-                    <Header style={{ backgroundColor: Colors.headerBackgroud }}>
+                <Container style={ApplicationStyles.style.screen.mainContainer}>
+                    <Header style={this.getStyleBebe()}>
                         <Left>
                             <Button
                                 transparent
@@ -60,11 +70,11 @@ class Dashboard extends Component {
                             </Button>
                         </Right>
                     </Header>
-                    <Tabs initialPage={0} tabBarPosition={'bottom'}>
-                        <Tab heading={<TabHeading><Icon name="home" /></TabHeading>}>
+                    <Tabs initialPage={0} tabBarPosition={'bottom'} >
+                         <Tab heading={<TabHeading style={this.getStyleBebe()}><Icon name="home" /></TabHeading>} >                         
                             <VacinaViewContainer navigation={this.props.navigation} />
                         </Tab>
-                        <Tab heading={<TabHeading><Icon name="book" /></TabHeading>}>
+                        <Tab heading={<TabHeading style={this.getStyleBebe()}><Icon name="book" /></TabHeading>}>
                             <DashboardViewContainer />
                         </Tab>
                         {/* <Tab heading={<TabHeading><Icon name="medkit" /></TabHeading>}>
@@ -80,7 +90,7 @@ class Dashboard extends Component {
                     </Tabs>
 
                 </Container>
-            </ScrollView>
+            </ScrollView >
 
         );
     }

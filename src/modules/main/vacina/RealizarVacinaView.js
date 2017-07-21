@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, ListView, StyleSheet, ScrollView } from 'react-native';
 import {
-    Container, Content, Body, Button,
+    Container, Content, Body, Button, Footer, FooterTab,
     Right, Left, Header, Icon, Title
 } from 'native-base';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
@@ -9,6 +9,7 @@ import { ApplicationStyles, Colors } from '../../../components/Themes';
 import * as vacinaServices from '../../../services/vacina/VacinaService';
 import Row from './Row';
 import I18n from '../../../i18n/i18n';
+import { MENINA } from '../../../model/bebe';
 
 class RealizarVacinaView extends Component {
     static navigationOptions = {
@@ -20,11 +21,21 @@ class RealizarVacinaView extends Component {
         this.props.actions.attrBebeVacinaDataAplicacao(this.props.bebe, rowData);
     }
     onDescricaoVacina(vacina) {
-        const { navigate } = this.props.navigation;        
+        const { navigate } = this.props.navigation;
         navigate('DescricaoVacina', { vacina });
     }
     onNovo() {
 
+    }
+    getStyleBebe() {
+        if (this.props.bebe.sexo === MENINA) {
+            return {
+                backgroundColor: Colors.menina.c8,
+            };
+        }
+        return {
+            backgroundColor: Colors.menino.c8,
+        };
     }
     renderCardsProximaVacinasList() {
         const proximaVacina = vacinaServices.getProximas(this.props.bebe);
@@ -52,11 +63,11 @@ class RealizarVacinaView extends Component {
             />
         );
     }
-    render() {        
+    render() {
         return (
             <ScrollView>
-                <Container style={ApplicationStyles.screen.mainContainer}>
-                    <Header style={{ backgroundColor: Colors.headerBackgroud }}>
+                <Container style={ApplicationStyles.style.screen.mainContainer}>
+                    <Header style={this.getStyleBebe()}>
                         <Left>
                             <Button
                                 transparent
@@ -87,6 +98,13 @@ class RealizarVacinaView extends Component {
                     <Content style={{ padding: 1 }}>
                         {this.renderCardsProximaVacinasList()}
                     </Content>
+                    <Footer>
+                        <FooterTab style={this.getStyleBebe()} >
+                            <Body>
+                                <Title>{I18n.t('home.footer')}</Title>
+                            </Body>
+                        </FooterTab>
+                    </Footer>
                 </Container>
             </ScrollView>
         );
