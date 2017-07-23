@@ -9,6 +9,7 @@ import NovoBebeStateReducer from '../modules/novoBebe/NovoBebeState';
 import MainStateReducer from '../modules/main/MainState';
 import DashboardStateReducer from '../modules/main/dashboard/DashboardState';
 import VacinaStateReducer from '../modules/main/vacina/VacinaState';
+import ConfigBebeStateReducer from '../modules/main/configBebe/ConfigBebeState';
 
 
 const reducers = {
@@ -19,24 +20,13 @@ const reducers = {
   navigatorState: NavigatorStateReducer,
 
   session: SessionStateReducer,
-
-  // Signup states
   signupState: SignupStateReducer,
-
-  // Login states
   loginState: LoginStateReducer,
-
-  // novo bebe states
   novoBebeState: NovoBebeStateReducer,
-
-  // dashboard states
   mainState: MainStateReducer,
-
-  // dashboard states
   dashboardState: DashboardStateReducer,
-
-  // dashboard states
   vacinaState: VacinaStateReducer,
+  configBebeState: ConfigBebeStateReducer,
 
 };
 

@@ -1,41 +1,27 @@
-import React, { Component } from 'react';
-import { View, ListView, StyleSheet, ScrollView } from 'react-native';
+import React from 'react';
+import { View, ListView, StyleSheet, ScrollView, Alert } from 'react-native';
 import {
     Container, Content, Body, Button, Footer, FooterTab,
-    Right, Left, Header, Icon, Title
+    Left, Header, Icon, Title
 } from 'native-base';
-import IconIonicons from 'react-native-vector-icons/Ionicons';
-import { ApplicationStyles, Colors } from '../../../components/Themes';
+import { ApplicationStyles } from '../../../components/Themes';
 import * as vacinaServices from '../../../services/vacina/VacinaService';
 import Row from './Row';
 import I18n from '../../../i18n/i18n';
-import { MENINA } from '../../../model/bebe';
+import MainComponent from '../MainComponent';
 
-class RealizarVacinaView extends Component {
+class RealizarVacinaView extends MainComponent {
     static navigationOptions = {
         header: null,
     };
 
-    onVacinar(rowData) {
+    onVacinar(rowData, rowID) {
         // console.log(rowData);
-        this.props.actions.attrBebeVacinaDataAplicacao(this.props.bebe, rowData);
+        this.props.actions.attrBebeVacinaDataAplicacao(this.props.bebe, rowData, rowID);
     }
     onDescricaoVacina(vacina) {
         const { navigate } = this.props.navigation;
         navigate('DescricaoVacina', { vacina });
-    }
-    onNovo() {
-
-    }
-    getStyleBebe() {
-        if (this.props.bebe.sexo === MENINA) {
-            return {
-                backgroundColor: Colors.menina.c8,
-            };
-        }
-        return {
-            backgroundColor: Colors.menino.c8,
-        };
     }
     renderCardsProximaVacinasList() {
         const proximaVacina = vacinaServices.getProximas(this.props.bebe);
@@ -47,20 +33,35 @@ class RealizarVacinaView extends Component {
         this.state = {
             dataSource: ds.cloneWithRows(proximaVacina),
         };
+        const { rowLoading } = this.props;
         return (
             <ListView
                 enableEmptySections
                 dataSource={this.state.dataSource}
-                renderRow={(rowData) =>
+                renderRow={(rowData, sectionID, rowID) =>
                     <Row
-                        onPress={this.onVacinar.bind(this, rowData)}
+                        onPress={this.onVacinar.bind(this, rowData, rowID)}
                         onPressDesc={this.onDescricaoVacina.bind(this, rowData)}
                         {...rowData}
+                        rowLoading={rowLoading}                        
+                        rowID={rowID}
                     />}
                 renderSeparator={
                     (sectionId, rowId) => <View key={rowId} style={styles.separator} />
                 }
             />
+        );
+    }
+    renderAlertSpinner() {
+        return (
+            Alert.alert(
+                'Vacinando',
+                '...',
+                [
+                    { text: 'OK', onPress: () => console.log('OK Pressed') },
+                ],
+                { cancelable: false }
+            )
         );
     }
     render() {
@@ -81,22 +82,9 @@ class RealizarVacinaView extends Component {
                         <Body>
                             <Title>{`${I18n.t('vacina.realizarVacinaTitle')}`}</Title>
                         </Body>
-                        <Right>
-                            <Button
-                                transparent
-                                onPress={() =>
-                                    this.props.navigation.goBack()
-                                }
-                            >
-                                <IconIonicons
-                                    name="md-settings"
-                                    size={20} color={Colors.white}
-                                />
-                            </Button>
-                        </Right>
                     </Header>
                     <Content style={{ padding: 1 }}>
-                        {this.renderCardsProximaVacinasList()}
+                        {this.renderCardsProximaVacinasList()}                        
                     </Content>
                     <Footer>
                         <FooterTab style={this.getStyleBebe()} >

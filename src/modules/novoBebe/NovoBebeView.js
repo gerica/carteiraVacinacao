@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, DatePickerAndroid, TouchableWithoutFeedback } from 'react-native';
+import IconIonicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {
     Button, Icon, Left, Container, Content, Header,
@@ -13,7 +14,16 @@ import I18n from '../../i18n/i18n';
 class NovoBebeView extends Component {
 
     static navigationOptions = {
-        header: null,        
+        header: null,
+        drawerLabel: 'Novo bebe',
+        drawerIcon: () => (
+            <View >
+                <IconIonicons
+                    name="md-people"
+                    size={20} color={Colors.black}
+                />
+            </View>
+        ),
     };
 
     componentWillMount() {
@@ -79,7 +89,7 @@ class NovoBebeView extends Component {
             <ScrollView>
                 <Container style={{ backgroundColor: Colors.background }}>
                     <Header style={{ backgroundColor: Colors.headerBackgroud }}>
-                        <Left>
+                        {/* <Left>
                             <Button
                                 transparent
                                 onPress={() =>
@@ -88,10 +98,18 @@ class NovoBebeView extends Component {
                             >
                                 <Icon name='ios-arrow-round-back' />
                             </Button>
-                        </Left>
+                        </Left> */}
                         <Body>
                             <Title>{I18n.t('novoBebe.title')}</Title>
                         </Body>
+                        <Right>
+                            <Button transparent onPress={() => this.props.navigation.navigate('DrawerOpen')}>
+                                <IconIonicons
+                                    name="md-menu"
+                                    size={20} color={Colors.white}
+                                />
+                            </Button>
+                        </Right>
                     </Header>
                     <Content style={{ padding: 1 }}>
                         <View style={[ApplicationStyles.style.screen.marginJusiify, ApplicationStyles.style.screen.rowCenter]}>

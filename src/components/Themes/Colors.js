@@ -55,18 +55,56 @@ const menina = {
     c17: '#f47fb8',
 };
 
+const amarelo = {
+    c1: '#fdfdf5',
+    c2: '#faf9e7',
+    c3: '#f7f5d9',
+    c4: '#f4f2cb',
+    c5: '#f1eebd',
+    c6: '#eeebaf',
+    c7: '#ebe7a1',
+    c8: '#e8e493',
+    c9: '#e6e085',
+    c10: '#e3dd77',
+    c11: '#e0d969',
+    c12: '#ddd65a',
+    c13: '#dad24c',
+    c14: '#d7cf3e',
+    c15: '#d4cb30',
+    c16: '#c9c12a',
+    c17: '#bbb327',
+};
+
+const vermelho = {
+    c1: '#ffe5e2',
+    c2: '#ffd5d1',
+    c3: '#ffc6c0',
+    c4: '#ffb7af',
+    c5: '#ffa89e',
+    c6: '#ff988d',
+    c7: '#ff897c',
+    c8: '#ff7a6b',
+    c9: '#ff6a5a',
+    c10: '#ff5b49',
+    c11: '#ff4c38',
+    c12: '#ff3d27',
+    c13: '#ff2d16',
+    c14: '#ff1e05',
+    c15: '#f31800',
+};
+
 const colors = {
-    headerBackgroud: '#f2d53f',
+    headerBackgroud: '#2980b9',
     background: '#fdf8de',
     button: '#7986cb',
     white: '#FFFFFF',
     black: '#000000',
     belizeHole: '#2980b9',
     sunFlower: '#f1c40f',
-    yellow0: '#faf9e7',
-    yellow5: '#ebe7a1',
+    amarelo,
     menino,
-    menina
+    menina,
+    vermelho
 };
 
 export default colors;

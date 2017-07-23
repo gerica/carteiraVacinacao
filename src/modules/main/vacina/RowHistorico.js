@@ -14,7 +14,7 @@ const RowHistorico = (props) => (
                         <Body>
                             <Text>Vacina Aplicada</Text>
                             <Text>{props.nome}</Text>
-                            <Text note>{moment(props.dataPrevista).format('DD-MM-YYYY')}</Text>
+                            <Text note>{moment(props.dataAplicacao).format('DD-MM-YYYY')}</Text>
                         </Body>
                     </Left>
                 </TouchableWithoutFeedback>

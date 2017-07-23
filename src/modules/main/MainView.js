@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import { ScrollView } from 'react-native';
+import React from 'react';
+import { ScrollView, View } from 'react-native';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
+import { NavigationActions } from 'react-navigation';
 import {
     Icon, Container, Header, Button, Body, Title,
     Tabs, Tab, TabHeading, Spinner, Left, Right
@@ -9,11 +10,20 @@ import { ApplicationStyles, Colors } from '../../components/Themes';
 import DashboardViewContainer from './dashboard/DashboardViewContainer';
 import VacinaViewContainer from './vacina/VacinaViewContainer';
 import I18n from '../../i18n/i18n';
-import { MENINA } from '../../model/bebe';
+import MainComponent from './MainComponent';
 
-class Dashboard extends Component {
+class MainView extends MainComponent {
     static navigationOptions = {
         header: null,
+        drawerLabel: 'Principal',
+        drawerIcon: () => (
+            <View >
+                <IconIonicons
+                    name="ios-body-outline"
+                    size={20} color={Colors.black}
+                />
+            </View>
+        ),
     };
 
     componentWillMount() {
@@ -22,23 +32,16 @@ class Dashboard extends Component {
             this.props.actions.attrBebe(bebe);
             this.props.actionsDashboard.attrBebe(bebe);
             this.props.actionsVacina.attrBebe(bebe);
+            this.props.actionsConfigBebe.attrBebe(bebe);
         }
     }
-    getStyleBebe() {
-        if (this.props.bebe.sexo === MENINA) {
-            return {
-                backgroundColor: Colors.menina.c8,
-            };
-        }
-        return {
-            backgroundColor: Colors.menino.c8,
-        };
-    }
+
     render() {
         // console.log(this.props);
         if (this.props.onLoading || !this.props.bebe) {
             return <Spinner />;
         }
+
         return (
             <ScrollView>
                 <Container style={ApplicationStyles.style.screen.mainContainer}>
@@ -47,7 +50,7 @@ class Dashboard extends Component {
                             <Button
                                 transparent
                                 onPress={() =>
-                                    this.props.navigation.goBack()
+                                    this.props.navigation.dispatch(NavigationActions.navigate({ routeName: 'Home' }))
                                 }
                             >
                                 <Icon name='ios-arrow-round-back' />
@@ -57,21 +60,16 @@ class Dashboard extends Component {
                             <Title>{`${I18n.t('dashboard.title')} ${this.props.bebe.nome}`}</Title>
                         </Body>
                         <Right>
-                            <Button
-                                transparent
-                                onPress={() =>
-                                    this.props.navigation.goBack()
-                                }
-                            >
+                            <Button transparent onPress={this.onMenu.bind(this)}>
                                 <IconIonicons
-                                    name="md-settings"
+                                    name="md-menu"
                                     size={20} color={Colors.white}
                                 />
                             </Button>
                         </Right>
                     </Header>
                     <Tabs initialPage={0} tabBarPosition={'bottom'} >
-                         <Tab heading={<TabHeading style={this.getStyleBebe()}><Icon name="home" /></TabHeading>} >                         
+                        <Tab heading={<TabHeading style={this.getStyleBebe()}><Icon name="home" /></TabHeading>} >
                             <VacinaViewContainer navigation={this.props.navigation} />
                         </Tab>
                         <Tab heading={<TabHeading style={this.getStyleBebe()}><Icon name="book" /></TabHeading>}>
@@ -96,4 +94,4 @@ class Dashboard extends Component {
     }
 }
 
-export default Dashboard;
+export default MainView;

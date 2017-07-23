@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableWithoutFeedback } from 'react-native';
 import {
-    Left, CardItem, Body, Card, Thumbnail, Right
+    Left, CardItem, Body, Card, Thumbnail, Right, Spinner
 } from 'native-base';
 import moment from 'moment';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
@@ -14,7 +14,7 @@ const Row = (props) => (
             <CardItem>
                 <TouchableWithoutFeedback onPress={props.onPressDesc}>
                     <Left>
-                        <Thumbnail source={Imagens.getKitSaude3().i} />
+                        <Thumbnail source={Imagens.getKitSaude3().injecao} />
                         <Body>
                             <Text>Próxima Vacina</Text>
                             <Text>{props.nome}</Text>
@@ -23,22 +23,26 @@ const Row = (props) => (
                     </Left>
                 </TouchableWithoutFeedback>
                 <TouchableWithoutFeedback onPress={props.onPress}>
-                    <Right>
-                        {
-                            props.dataAplicacao === undefined || props.dataAplicacao === null
-                                ?
-                                <IconIonicons
-                                    name="md-square-outline"
-                                    size={20} color={Colors.logo}
-                                />
-                                :
-                                <IconIonicons
-                                    name="md-checkbox-outline"
-                                    size={20} color={Colors.logo}
-                                />
-                        }
+                    {(props.rowLoading === props.rowID) ?
+                        <Spinner size={'small'} />
+                        :
+                        <Right>
+                            {
+                                props.dataAplicacao === undefined || props.dataAplicacao === null
+                                    ?
+                                    <IconIonicons
+                                        name="md-square-outline"
+                                        size={20} color={Colors.logo}
+                                    />
+                                    :
+                                    <IconIonicons
+                                        name="md-checkbox-outline"
+                                        size={20} color={Colors.logo}
+                                    />
+                            }
 
-                    </Right>
+                        </Right>
+                    }
                 </TouchableWithoutFeedback>
             </CardItem>
         </Card>

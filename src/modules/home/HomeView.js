@@ -16,14 +16,28 @@ import { MENINA } from '../../model/bebe';
 class HomeView extends Component {
 
     static navigationOptions = {
-        header: null,
+        // header: null,
+        drawerLabel: 'Inicial',
+        drawerIcon: () => (
+            <View >
+                <IconIonicons
+                    name="md-home"
+                    size={20} color={Colors.black}
+                />
+            </View>
+        ),
     };
     componentWillMount() {
         this.props.actions.init();
     }
+    onNovoMenu() {
+        const { navigate } = this.props.navigation;
+        // navigate('NovoBebe');
+        navigate('DrawerOpen');
+    }
     onNovo() {
         const { navigate } = this.props.navigation;
-        navigate('NovoBebe');
+        navigate('NovoBebe');        
     }
     onMain(bebe) {
         const { navigate } = this.props.navigation;
@@ -104,15 +118,15 @@ class HomeView extends Component {
     render() {
         // console.log(this.props);
         return (
-            <View style={[HomeStyle.style.screen.mainContainer, { backgroundColor: Colors.background }]}>
+            <View style={[HomeStyle.style.screen.mainContainer, { backgroundColor: Colors.amarelo.c1 }]}>
                 <Header style={{ backgroundColor: Colors.headerBackgroud }} >
                     <Body>
                         <Title>{I18n.t('home.title')}</Title>
                     </Body>
                     <Right>
-                        <Button transparent onPress={this.onNovo.bind(this)}>
+                        <Button transparent onPress={this.onNovoMenu.bind(this)}>
                             <IconIonicons
-                                name="md-people"
+                                name="md-menu"
                                 size={20} color={Colors.white}
                             />
                         </Button>

@@ -1,30 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, ListView, StyleSheet, ScrollView } from 'react-native';
 import { Body, Button, Left, Header, Icon, Title, Footer, FooterTab } from 'native-base';
-import { ApplicationStyles, Colors } from '../../../components/Themes';
+import { ApplicationStyles } from '../../../components/Themes';
 import * as vacinaServices from '../../../services/vacina/VacinaService';
 import RowHistorico from './RowHistorico';
 import I18n from '../../../i18n/i18n';
-import { MENINA } from '../../../model/bebe';
+import MainComponent from '../MainComponent';
 
-class RealizarVacinaView extends Component {
+class RealizarVacinaView extends MainComponent {
     static navigationOptions = {
         header: null,
     };
     onDescricaoVacina(vacina) {
         const { navigate } = this.props.navigation;
         navigate('DescricaoVacina', { vacina });
-    }
-    getStyleBebe() {
-        if (this.props.bebe.sexo === MENINA) {
-            return {
-                backgroundColor: Colors.menina.c8,
-            };
-        }
-        return {
-            backgroundColor: Colors.menino.c8,
-        };
-    }
+    }    
     renderCardsHistoricos() {
         const historicoVacinas = vacinaServices.getHistorico(this.props.bebe);
         if (!historicoVacinas) {

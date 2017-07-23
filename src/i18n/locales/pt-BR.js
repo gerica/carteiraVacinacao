@@ -23,5 +23,11 @@ export default {
     },
     descricaoVacina: {
         title: 'Descrição da vacina'
+    },
+    configBebe: {
+        menu: 'Configuração',
+        title: 'Configuração do bebe',
+        apagar: 'Apagar'
     }
+
 };

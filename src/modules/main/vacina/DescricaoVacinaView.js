@@ -1,29 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import {
     Header, Icon, CardItem, Body, Card, Button,
     Title, Left, Footer, FooterTab
 } from 'native-base';
 import moment from 'moment';
-import { ApplicationStyles, Colors } from '../../../components/Themes';
+import { ApplicationStyles } from '../../../components/Themes';
 import I18n from '../../../i18n/i18n';
-import { MENINA } from '../../../model/bebe';
+import MainComponent from '../MainComponent';
 
-class VacinaView extends Component {
+class VacinaView extends MainComponent {
     static navigationOptions = {
         header: null,
     };
 
-    getStyleBebe() {
-        if (this.props.bebe.sexo === MENINA) {
-            return {
-                backgroundColor: Colors.menina.c8,
-            };
-        }
-        return {
-            backgroundColor: Colors.menino.c8,
-        };
-    }
     render() {
         console.log(this.props.navigation.state.params);
         const { vacina } = this.props.navigation.state.params;

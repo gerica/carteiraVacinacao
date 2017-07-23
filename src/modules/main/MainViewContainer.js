@@ -6,6 +6,7 @@ import * as SessionActions from '../session/SessionState';
 import * as MainActions from './MainState';
 import * as DashboardActions from './dashboard/DashboardState';
 import * as VacinaActions from './vacina/VacinaState';
+import * as ConfigBebeActions from './configBebe/ConfigBebeState';
 
 const mapStateToProps = (reducer) => {
     // const session = reducer.get('session').toJS();
@@ -19,6 +20,7 @@ const init = dispatch => ({
     actionsSession: bindActionCreators(SessionActions, dispatch),
     actionsDashboard: bindActionCreators(DashboardActions, dispatch),
     actionsVacina: bindActionCreators(VacinaActions, dispatch),
+    actionsConfigBebe: bindActionCreators(ConfigBebeActions, dispatch),
     actions: bindActionCreators(MainActions, dispatch)
 });
 

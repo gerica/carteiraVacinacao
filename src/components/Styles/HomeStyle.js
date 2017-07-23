@@ -11,7 +11,7 @@ const style = {
     },
     botaoNovoBebe: {
         ...ApplicationStyles.padrao.botaoPadrao,
-        backgroundColor: Colors.yellow5,
+        backgroundColor: Colors.amarelo.c8,
     },
 };
 
