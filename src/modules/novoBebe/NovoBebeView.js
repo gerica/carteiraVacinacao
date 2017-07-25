@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, ScrollView, DatePickerAndroid, DatePickerIOS, TouchableWithoutFeedback, Platform } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {
     Button, Icon, Left, Container, Content, Header,
@@ -9,7 +9,6 @@ import {
 import { ApplicationStyles, Colors } from '../../components/Themes';
 import { MENINO, MENINA } from '../../model/bebe';
 import I18n from '../../i18n/i18n';
-import DatePicker from 'react-native-datepicker';
 
 class NovoBebeView extends Component {
 
@@ -47,8 +46,6 @@ class NovoBebeView extends Component {
     }
     showPicker = async (stateKey, options) => {
         try {
-            const newState = {};
-            /*
             const { action, year, month, day } = await DatePickerAndroid.open(options);
             if (action === DatePickerAndroid.dismissedAction) {
                 this.props.action.attrBebeDataNascimento(null);
@@ -56,10 +53,6 @@ class NovoBebeView extends Component {
                 const date = new Date(year, month, day);
                 this.props.actions.attrBebeDataNascimento(date);
             }
-            */
-            const date = new Date();
-            this.props.actions.attrBebeDataNascimento(date);
-            this.setState(newState);
         } catch ({ code, message }) {
             console.warn(`Error in example '${stateKey}': `, message);
         }
@@ -85,6 +78,26 @@ class NovoBebeView extends Component {
         }
         return false;
     }
+    /*
+    renderDatePiker() {
+        if (Platform.OS === 'ios') {
+            return (<DatePickerIOS
+                date={this.props.bebe.dataNascimento || new Date()}
+                mode="date"
+                timeZoneOffsetInMinutes={this.state.timeZoneOffsetInHours * 60}
+                onDateChange={(date) => this.props.actions.attrBebeDataNascimento(date)}
+            />);
+        }
+        return (
+            <TouchableWithoutFeedback onPress={this.showPicker.bind(this, 'preset', { date: this.props.bebe.dataNascimento || new Date() })}>
+                <View style={[ApplicationStyles.screen.rightContainer, { paddingRight: '5%' }]}>
+                    <MaterialIcons name='today' size={30} color={Colors.belizeHole} />
+                    <Text>{this.dataNascimentoString()}</Text>
+                </View>
+            </TouchableWithoutFeedback>
+        );
+    }
+    */
     render() {
         if (this.props.onLoading) {
             return <Spinner />;
@@ -134,19 +147,15 @@ class NovoBebeView extends Component {
                                             value={this.props.bebe.sobrenome}
                                         />
                                     </Item>
-                                    <Item label="Wallet">
+                                    <Item label="Nascimento">
                                         <Label>{I18n.t('novoBebe.datanascimento')}</Label>
-                                        <DatePicker
-                                                style={{width: 200}}
-                                                date={this.props.bebe.dataNascimento}
-                                                mode="date"
-                                                placeholder="placeholder"
-                                                format="DD-MM-YYYY"
-                                                confirmBtnText="Confirmar"
-                                                cancelBtnText="Cancelar"
-                                                onDateChange={(date) => {this.setState({date: { date: this.props.bebe.dataNascimento || new Date() }});}}
+                                        <View >
+                                        <DatePickerIOS
+                                            date={this.props.bebe.dataNascimento || new Date()}
+                                            mode="date"
+                                            onDateChange={(date) => this.props.actions.attrBebeDataNascimento(date)}
                                         />
-
+                                        </View>
                                     </Item>
 
                                     <ListItem>
@@ -155,7 +164,7 @@ class NovoBebeView extends Component {
                                             <Radio
                                                 selected={this.onSexoSelected(MENINO)}
                                                 onPress={
-                                                    () => console.log(this.props.actions.attrBebeSexo(MENINO))
+                                                    () => this.props.actions.attrBebeSexo(MENINO)
                                                 }
                                             />
                                         </Right>
@@ -166,7 +175,7 @@ class NovoBebeView extends Component {
                                             <Radio
                                                 selected={this.onSexoSelected(MENINA)}
                                                 onPress={
-                                                    () => console.log(this.props.actions.attrBebeSexo(MENINA))
+                                                    () => this.props.actions.attrBebeSexo(MENINA)
                                                 }
                                             />
                                         </Right>
