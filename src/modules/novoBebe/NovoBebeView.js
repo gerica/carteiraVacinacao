@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, DatePickerAndroid, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, ScrollView, DatePickerAndroid, DatePickerIOS, TouchableWithoutFeedback, Platform } from 'react-native';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {
@@ -47,7 +47,6 @@ class NovoBebeView extends Component {
     }
     showPicker = async (stateKey, options) => {
         try {
-            const newState = {};
             const { action, year, month, day } = await DatePickerAndroid.open(options);
             if (action === DatePickerAndroid.dismissedAction) {
                 this.props.action.attrBebeDataNascimento(null);
@@ -55,7 +54,6 @@ class NovoBebeView extends Component {
                 const date = new Date(year, month, day);
                 this.props.actions.attrBebeDataNascimento(date);
             }
-            this.setState(newState);
         } catch ({ code, message }) {
             console.warn(`Error in example '${stateKey}': `, message);
         }
@@ -81,6 +79,26 @@ class NovoBebeView extends Component {
         }
         return false;
     }
+
+    renderDatePiker() {
+        if (Platform.OS === 'ios') {
+            return (<DatePickerIOS
+                date={this.props.bebe.dataNascimento || new Date()}
+                mode="date"
+                timeZoneOffsetInMinutes={this.state.timeZoneOffsetInHours * 60}
+                onDateChange={(date) => this.props.actions.attrBebeDataNascimento(date)}
+            />);
+        }
+        return (
+            <TouchableWithoutFeedback onPress={this.showPicker.bind(this, 'preset', { date: this.props.bebe.dataNascimento || new Date() })}>
+                <View style={[ApplicationStyles.style.screen.rightContainer, { paddingRight: '5%' }]}>
+                    <MaterialIcons name='today' size={30} color={Colors.belizeHole} />
+                    <Text>{this.dataNascimentoString()}</Text>
+                </View>
+            </TouchableWithoutFeedback>
+        );
+    }
+
     render() {
         if (this.props.onLoading) {
             return <Spinner />;
@@ -138,15 +156,9 @@ class NovoBebeView extends Component {
                                             value={this.props.bebe.sobrenome}
                                         />
                                     </Item>
-                                    <Item label="Wallet">
+                                    <Item label="Nascimento">
                                         <Label>{I18n.t('novoBebe.datanascimento')}</Label>
-                                        <TouchableWithoutFeedback onPress={this.showPicker.bind(this, 'preset', { date: this.props.bebe.dataNascimento || new Date() })}>
-                                            <View style={[ApplicationStyles.style.screen.rightContainer, { paddingRight: '5%' }]}>
-                                                <MaterialIcons name='today' size={30} color={Colors.belizeHole} />
-                                                <Text>{this.dataNascimentoString()}</Text>
-                                            </View>
-                                        </TouchableWithoutFeedback>
-
+                                        {this.renderDatePiker()}
                                     </Item>
 
                                     <ListItem>
@@ -155,7 +167,7 @@ class NovoBebeView extends Component {
                                             <Radio
                                                 selected={this.onSexoSelected(MENINO)}
                                                 onPress={
-                                                    () => console.log(this.props.actions.attrBebeSexo(MENINO))
+                                                    () => this.props.actions.attrBebeSexo(MENINO)
                                                 }
                                             />
                                         </Right>
@@ -166,7 +178,7 @@ class NovoBebeView extends Component {
                                             <Radio
                                                 selected={this.onSexoSelected(MENINA)}
                                                 onPress={
-                                                    () => console.log(this.props.actions.attrBebeSexo(MENINA))
+                                                    () => this.props.actions.attrBebeSexo(MENINA)
                                                 }
                                             />
                                         </Right>

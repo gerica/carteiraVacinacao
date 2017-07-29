@@ -79,7 +79,7 @@ class VacinaView extends Component {
                 <Card>
                     <CardItem>
                         <Left>
-                            <Thumbnail source={Imagens.getKitSaude3().injecao} />
+                            <Thumbnail source={Imagens.getKitSaude3().injecao} style={ApplicationStyles.style.screen.circleLogo} />
                             <Body>
                                 <Text>Próxima Vacina - {dataPrevista}</Text>
                                 <View>

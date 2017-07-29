@@ -5,7 +5,7 @@ import {
 } from 'native-base';
 import moment from 'moment';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
-import { Colors } from '../../../components/Themes';
+import { ApplicationStyles, Colors } from '../../../components/Themes';
 import Imagens from '../../../utils/image/Imagens';
 
 const Row = (props) => (
@@ -14,7 +14,7 @@ const Row = (props) => (
             <CardItem>
                 <TouchableWithoutFeedback onPress={props.onPressDesc}>
                     <Left>
-                        <Thumbnail source={Imagens.getKitSaude3().injecao} />
+                        <Thumbnail source={Imagens.getKitSaude3().injecao} style={ApplicationStyles.style.screen.circleLogo} />
                         <Body>
                             <Text>Próxima Vacina</Text>
                             <Text>{props.nome}</Text>

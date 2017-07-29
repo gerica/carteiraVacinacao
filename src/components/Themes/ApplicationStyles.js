@@ -37,12 +37,12 @@ const style = {
         },
         circleLogo: {
             backgroundColor: 'transparent',
-            width: 50,
-            height: 50,
+            // width: 50,
+            // height: 50,
             borderRadius: 100 / 2,
             alignItems: 'center',
             borderWidth: 1,
-            borderColor: '#59c1df',
+            borderColor: Colors.amarelo.c13,
         },
         leftContainer: {
             flex: 1,

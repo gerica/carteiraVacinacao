@@ -22,7 +22,7 @@ class Dashboard extends Component {
                     <Card>
                         <CardItem>
                             <Left>
-                                <Thumbnail source={Imagens.getKitSaude3().getForIndex(card.thumbnail)} />
+                                <Thumbnail source={Imagens.getKitSaude3().getForIndex(card.thumbnail)} style={ApplicationStyles.style.screen.circleLogo} />
                                 <Body>
                                     <Text>{card.title}</Text>
                                 </Body>
