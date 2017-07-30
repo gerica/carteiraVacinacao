@@ -65,8 +65,6 @@ class HomeView extends Component {
             </Button>
         );
     }
-
-
     getButtonNovoBebe() {
         return (
             <Button iconRight rounded style={HomeStyle.style.botaoNovoBebe} onPress={this.onNovo.bind(this)}>
@@ -77,7 +75,8 @@ class HomeView extends Component {
     }
     renderButtonBebes() {
         const { bebes } = this.props;
-        if (!bebes) {
+        // console.log(bebes);
+        if (!bebes || bebes.length === 0) {
             return (
                 <View style={[HomeStyle.style.screen.centerContainer]}>
                     <View style={HomeStyle.style.screen.rowCenter}>

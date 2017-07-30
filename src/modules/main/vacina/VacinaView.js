@@ -133,6 +133,7 @@ class VacinaView extends Component {
         );
     }
     render() {
+        console.log(this.props);
         return (
             <Container style={this.getStyleBebe()}>
                 <Content>

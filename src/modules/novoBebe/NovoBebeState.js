@@ -99,7 +99,7 @@ export function save(bebe, navigate) {
             const novoBebe = dao.criarNovoBebe(bebe);
             const vacinas = vacinaService.criarListaInicial();
 
-            novoBebe.vacinas = List(vacinaService.calcProximaData(bebe, vacinas));
+            novoBebe.vacinas = List(vacinaService.calcProximaData(vacinas, bebe.dataNascimento));
             list.push(novoBebe);
             console.log(list);
             dao.save(list).then(() => navigate('Home'));

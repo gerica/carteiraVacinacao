@@ -1,5 +1,6 @@
 import { Map } from 'immutable';
 import BebeDao from '../../../dao/BebeDao';
+import * as vacinaService from '../../../services/vacina/VacinaService';
 
 const dao = new BebeDao();
 
@@ -48,43 +49,64 @@ export function attrRowLoading(value) {
         payload: value
     };
 }
-export function attrBebeVacinaDataAplicacao(bebe, value, rowID) {
+export function attrBebeVacinaDataAplicacao(bebe, value, rowID, recalcular) {
     return (dispatch) => {
         dispatch(attrRowLoading(rowID));
         dao.find().then((result) => {
             const findBebe = b => b.nome === bebe.nome;
             const antigoBebe = result.find(findBebe);
             if (antigoBebe) {
-                const findVacina = vacina => value.id === vacina.id;
-                const vacinaAlterar = bebe.vacinas.find(findVacina);
-
-                const indexVacina = bebe.vacinas.indexOf(vacinaAlterar);
-                if (vacinaAlterar.dataAplicacao === undefined || vacinaAlterar.dataAplicacao === null) {
-                    vacinaAlterar.dataAplicacao = new Date();
-                } else {
-                    vacinaAlterar.dataAplicacao = null;
+                toggleVacinar(bebe, value, antigoBebe);
+                if (recalcular) {
+                    reacalcularDataVacinas(antigoBebe);
+                    // antigoBebe.vacinas = novaListaVacinas;
                 }
-                antigoBebe.vacinas.splice(indexVacina, 1);
-                antigoBebe.vacinas.splice(indexVacina, 0, vacinaAlterar);
-
-                const indexBebes = result.indexOf(antigoBebe);
-                const novaLista = result;
-                novaLista.splice(indexBebes, 1);
-                novaLista.splice(indexBebes, 0, antigoBebe);
-
-                dao.save(novaLista).then(() => {
-                    dispatch(attrBebe(antigoBebe));
-                    dispatch(attrRowLoading(offRowLoading));
-                }).catch(() => {
-                    dispatch(attrRowLoading(offRowLoading));
-                });
+                const novaLista = gerarNovaListaBebes(result, antigoBebe);
+                salvarNovaListaVacinas(dispatch, novaLista, antigoBebe);
             }
         });
-        // dispatch({
-        //     type: ATTR_BEBE_VACINA_DATA_APLICACAO,
-        //     value: novaListaVacina,
-        // });
     };
+}
+
+function reacalcularDataVacinas(antigoBebe) {
+    const novaListaVacinas = vacinaService.recalcularDataVacinas(antigoBebe);
+    novaListaVacinas.forEach(e => {
+        const findIndexVacina = v => v.id === e.id;
+        const indexVacina = antigoBebe.vacinas.findIndex(findIndexVacina);
+        antigoBebe.vacinas.splice(indexVacina, 1);
+        antigoBebe.vacinas.splice(indexVacina, 0, e);
+    });
+}
+
+function toggleVacinar(bebe, value, antigoBebe) {
+    const findVacina = vacina => value.id === vacina.id;
+    const vacinaAlterar = bebe.vacinas.find(findVacina);
+
+    const indexVacina = bebe.vacinas.indexOf(vacinaAlterar);
+    if (vacinaAlterar.dataAplicacao === undefined || vacinaAlterar.dataAplicacao === null) {
+        vacinaAlterar.dataAplicacao = new Date();
+    } else {
+        vacinaAlterar.dataAplicacao = null;
+    }
+    antigoBebe.vacinas.splice(indexVacina, 1);
+    antigoBebe.vacinas.splice(indexVacina, 0, vacinaAlterar);
+}
+
+function salvarNovaListaVacinas(dispatch, novaLista, antigoBebe) {
+    dao.save(novaLista).then(() => {
+        dispatch(attrBebe(antigoBebe));
+        dispatch(attrRowLoading(offRowLoading));
+    }).catch(() => {
+        dispatch(attrRowLoading(offRowLoading));
+    });
+}
+
+function gerarNovaListaBebes(result, antigoBebe) {
+    const indexBebes = result.indexOf(antigoBebe);
+    const novaLista = result;
+    novaLista.splice(indexBebes, 1);
+    novaLista.splice(indexBebes, 0, antigoBebe);
+    return novaLista;
 }
 
 // Reducer

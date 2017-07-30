@@ -55,7 +55,7 @@ export const MainDrawerNavigator = DrawerNavigator({
   });
 
 function renderItem(props) {
-  console.log(props);
+  // console.log(props);
   // console.log(props.navigation.state.routes);
   return (
     <DrawerItems {...props} />

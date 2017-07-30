@@ -17,6 +17,7 @@ class VacinaView extends MainComponent {
     render() {
         console.log(this.props.navigation.state.params);
         const { vacina } = this.props.navigation.state.params;
+        console.log(vacina.dataAplicacao);
         return (
             <View style={ApplicationStyles.style.screen.mainContainer}>
                 <Header style={this.getStyleBebe()}>
@@ -47,7 +48,7 @@ class VacinaView extends MainComponent {
                                         <Text>Doenças Evitadas: {vacina.doencasEvitadas}</Text>
                                         <Text>Dose: {vacina.doses}</Text>
                                         <Text>Idade: {vacina.idade}</Text>
-                                        <Text>Data Aplicação: {moment(vacina.dataAplicacao).format('DD-MM-YYYY')}</Text>
+                                        <Text>Data Aplicação: {vacina.dataAplicacao ? moment(vacina.dataAplicacao).format('DD-MM-YYYY') : null}</Text>
                                     </View>
                                 </Body>
                             </Left>

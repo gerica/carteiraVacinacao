@@ -24,7 +24,6 @@ class RealizarVacinaView extends MainComponent {
         return proximaVacina;
     }
     onPodeVacinar(rowData, rowID) {
-        // console.log(rowData);  
         const proximaVacina = this.getProximasVacinas();
         if (!proximaVacina) {
             return;
@@ -40,14 +39,11 @@ class RealizarVacinaView extends MainComponent {
         if (vacinasFazer.length === 1 && (!rowData.dataAplicacao)) {
             this.renderAlertConfirmar(rowData, rowID);
         } else {
-            this.onVacinar(rowData, rowID);
+            this.onVacinar(rowData, rowID, false);
         }
     }
-    onVacinar(rowData, rowID) {
-        this.props.actions.attrBebeVacinaDataAplicacao(this.props.bebe, rowData, rowID);
-    }
-    onRecalcularDataProximaVacinas() {
-        console.log('recalcular');
+    onVacinar(rowData, rowID, recalcular) {
+        this.props.actions.attrBebeVacinaDataAplicacao(this.props.bebe, rowData, rowID, recalcular);
     }
     onDescricaoVacina(vacina) {
         const { navigate } = this.props.navigation;
@@ -91,11 +87,7 @@ class RealizarVacinaView extends MainComponent {
                 [
                     { text: 'Cancelar' },
                     {
-                        text: 'OK',
-                        onPress: () => {
-                            this.onVacinar(rowData, rowID);
-                            this.onRecalcularDataProximaVacinas();
-                        }
+                        text: 'OK', onPress: this.onVacinar.bind(this, rowData, rowID, true)
                     },
                 ],
                 { cancelable: true }
@@ -104,6 +96,7 @@ class RealizarVacinaView extends MainComponent {
     }
 
     render() {
+        // console.log(this.props);
         return (
             <ScrollView>
                 <Container style={ApplicationStyles.style.screen.mainContainer}>

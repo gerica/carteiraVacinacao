@@ -13,43 +13,43 @@ export function criarListaInicial() {
     return result;
 }
 
-export function calcProximaData(bebe, vacinas) {
+export function calcProximaData(vacinas, dataParametro) {
     const calcDate = v => {
-        const dataNascimento = moment(bebe.dataNascimento, 'DD-MM-YYYY');
+        const dataReferencia = moment(dataParametro, 'DD-MM-YYYY');
         const vacina = criarVacina(v);
         switch (vacina.idade) {
             case chaveVacinas[0]:
-                vacina.dataPrevista = dataNascimento;
+                vacina.dataPrevista = dataReferencia;
                 break;
             case chaveVacinas[1]:
-                vacina.dataPrevista = dataNascimento.add(2, 'months');
+                vacina.dataPrevista = dataReferencia.add(2, 'months');
                 break;
             case chaveVacinas[2]:
-                vacina.dataPrevista = dataNascimento.add(3, 'months');
+                vacina.dataPrevista = dataReferencia.add(3, 'months');
                 break;
             case chaveVacinas[3]:
-                vacina.dataPrevista = dataNascimento.add(4, 'months');
+                vacina.dataPrevista = dataReferencia.add(4, 'months');
                 break;
             case chaveVacinas[4]:
-                vacina.dataPrevista = dataNascimento.add(5, 'months');
+                vacina.dataPrevista = dataReferencia.add(5, 'months');
                 break;
             case chaveVacinas[5]:
-                vacina.dataPrevista = dataNascimento.add(6, 'months');
+                vacina.dataPrevista = dataReferencia.add(6, 'months');
                 break;
             case chaveVacinas[6]:
-                vacina.dataPrevista = dataNascimento.add(9, 'months');
+                vacina.dataPrevista = dataReferencia.add(9, 'months');
                 break;
             case chaveVacinas[7]:
-                vacina.dataPrevista = dataNascimento.add(12, 'months');
+                vacina.dataPrevista = dataReferencia.add(12, 'months');
                 break;
             case chaveVacinas[8]:
-                vacina.dataPrevista = dataNascimento.add(15, 'months');
+                vacina.dataPrevista = dataReferencia.add(15, 'months');
                 break;
             case chaveVacinas[9]:
-                vacina.dataPrevista = dataNascimento.add(4, 'years');
+                vacina.dataPrevista = dataReferencia.add(4, 'years');
                 break;
             case chaveVacinas[10]:
-                vacina.dataPrevista = dataNascimento.add(9, 'years');
+                vacina.dataPrevista = dataReferencia.add(9, 'years');
                 break;
 
             default:
@@ -78,13 +78,22 @@ export function getProxima(bebe) {
 
 export function getProximas(bebe) {
     const proxima = getProxima(bebe);
-    const filterProxima = e => proxima.idade === e.idade;
-    const result = bebe.vacinas.filter(filterProxima);
-    return result;
+    if (proxima) {
+        const filterProxima = e => proxima.idade === e.idade;
+        const result = bebe.vacinas.filter(filterProxima);
+        return result;
+    }
+    return null;
 }
 export function getHistorico(bebe) {
     const filterProxima = e => e.dataAplicacao;
     const result = bebe.vacinas.filter(filterProxima);
+    return result;
+}
+
+export function getProximasARealizar(bebe) {
+    const filterVacinasAFazer = v => !v.dataAplicacao;
+    const result = bebe.vacinas.filter(filterVacinasAFazer);
     return result;
 }
 
@@ -100,3 +109,8 @@ export function criarVacina(dado) {
     return vacina;
 }
 
+export function recalcularDataVacinas(bebe) {
+    const vacinasARealizar = getProximasARealizar(bebe);
+    const result = calcProximaData(vacinasARealizar, new Date());
+    return result;
+}
