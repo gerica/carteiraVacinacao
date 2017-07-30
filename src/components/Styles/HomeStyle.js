@@ -1,4 +1,4 @@
-import { ApplicationStyles, Colors, Fonts } from '../Themes';
+import { ApplicationStyles, Colors } from '../Themes';
 
 const style = {
     ...ApplicationStyles.style,

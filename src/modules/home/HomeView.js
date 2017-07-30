@@ -6,12 +6,13 @@ import {
     Header, Body, FooterTab,
     Title
 } from 'native-base';
+import PushNotification from 'react-native-push-notification';
 import { Colors } from '../../components/Themes';
 import HomeStyle from '../../components/Styles/HomeStyle';
 import I18n from '../../i18n/i18n';
 import { MENINA } from '../../model/bebe';
-
-// const { height, width } = Dimensions.get('window');
+import Handler from '../../utils/NotificationHandler';
+import { onNotification } from '../../utils/Notification';
 
 class HomeView extends Component {
 
@@ -21,7 +22,7 @@ class HomeView extends Component {
         drawerIcon: () => (
             <View >
                 <IconIonicons
-                    name="md-home"
+                    name='md-home'
                     size={20} color={Colors.black}
                 />
             </View>
@@ -29,6 +30,7 @@ class HomeView extends Component {
     };
     componentWillMount() {
         this.props.actions.init();
+        Handler();
     }
     onNovoMenu() {
         const { navigate } = this.props.navigation;
@@ -37,7 +39,7 @@ class HomeView extends Component {
     }
     onNovo() {
         const { navigate } = this.props.navigation;
-        navigate('NovoBebe');        
+        navigate('NovoBebe');
     }
     onMain(bebe) {
         const { navigate } = this.props.navigation;
@@ -63,6 +65,8 @@ class HomeView extends Component {
             </Button>
         );
     }
+
+
     getButtonNovoBebe() {
         return (
             <Button iconRight rounded style={HomeStyle.style.botaoNovoBebe} onPress={this.onNovo.bind(this)}>
@@ -126,13 +130,18 @@ class HomeView extends Component {
                     <Right>
                         <Button transparent onPress={this.onNovoMenu.bind(this)}>
                             <IconIonicons
-                                name="md-menu"
+                                name='md-menu'
                                 size={20} color={Colors.white}
                             />
                         </Button>
                     </Right>
                 </Header>
                 {this.renderButtonBebes()}
+                <Button transparent onPress={onNotification.bind(this)} rounded style={HomeStyle.style.botaoNovoBebe}>
+                    <Text>
+                        Notificar
+                    </Text>
+                </Button>
                 <Footer>
                     <FooterTab style={{ backgroundColor: Colors.headerBackgroud }} >
                         <Body>
