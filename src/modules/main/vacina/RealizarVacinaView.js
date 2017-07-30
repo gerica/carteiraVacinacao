@@ -15,16 +15,46 @@ class RealizarVacinaView extends MainComponent {
         header: null,
     };
 
+    getProximasVacinas() {
+        const proximaVacina = vacinaServices.getProximas(this.props.bebe);
+        if (!proximaVacina) {
+            return;
+        }
+
+        return proximaVacina;
+    }
+    onPodeVacinar(rowData, rowID) {
+        // console.log(rowData);  
+        const proximaVacina = this.getProximasVacinas();
+        if (!proximaVacina) {
+            return;
+        }
+
+        const loopVacinas = v => {
+            if (!v.dataAplicacao) {
+                return true;
+            }
+        };
+
+        const vacinasFazer = proximaVacina.filter(loopVacinas);
+        if (vacinasFazer.length === 1 && (!rowData.dataAplicacao)) {
+            this.renderAlertConfirmar(rowData, rowID);
+        } else {
+            this.onVacinar(rowData, rowID);
+        }
+    }
     onVacinar(rowData, rowID) {
-        // console.log(rowData);
         this.props.actions.attrBebeVacinaDataAplicacao(this.props.bebe, rowData, rowID);
+    }
+    onRecalcularDataProximaVacinas() {
+        console.log('recalcular');
     }
     onDescricaoVacina(vacina) {
         const { navigate } = this.props.navigation;
         navigate('DescricaoVacina', { vacina });
     }
     renderCardsProximaVacinasList() {
-        const proximaVacina = vacinaServices.getProximas(this.props.bebe);
+        const proximaVacina = this.getProximasVacinas();
         if (!proximaVacina) {
             return;
         }
@@ -40,10 +70,10 @@ class RealizarVacinaView extends MainComponent {
                 dataSource={this.state.dataSource}
                 renderRow={(rowData, sectionID, rowID) =>
                     <Row
-                        onPress={this.onVacinar.bind(this, rowData, rowID)}
+                        onPress={this.onPodeVacinar.bind(this, rowData, rowID)}
                         onPressDesc={this.onDescricaoVacina.bind(this, rowData)}
                         {...rowData}
-                        rowLoading={rowLoading}                        
+                        rowLoading={rowLoading}
                         rowID={rowID}
                     />}
                 renderSeparator={
@@ -52,18 +82,27 @@ class RealizarVacinaView extends MainComponent {
             />
         );
     }
-    renderAlertSpinner() {
+    renderAlertConfirmar(rowData, rowID) {
         return (
+            // Works on both iOS and Android
             Alert.alert(
-                'Vacinando',
-                '...',
+                'Confirmação',
+                `Confirmar vacinação do bebe ${this.props.bebe.nome}?`,
                 [
-                    { text: 'OK', onPress: () => console.log('OK Pressed') },
+                    { text: 'Cancelar' },
+                    {
+                        text: 'OK',
+                        onPress: () => {
+                            this.onVacinar(rowData, rowID);
+                            this.onRecalcularDataProximaVacinas();
+                        }
+                    },
                 ],
-                { cancelable: false }
+                { cancelable: true }
             )
         );
     }
+
     render() {
         return (
             <ScrollView>
@@ -84,7 +123,7 @@ class RealizarVacinaView extends MainComponent {
                         </Body>
                     </Header>
                     <Content style={{ padding: 1 }}>
-                        {this.renderCardsProximaVacinasList()}                        
+                        {this.renderCardsProximaVacinasList()}
                     </Content>
                     <Footer>
                         <FooterTab style={this.getStyleBebe()} >

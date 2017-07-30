@@ -137,11 +137,11 @@ class HomeView extends Component {
                     </Right>
                 </Header>
                 {this.renderButtonBebes()}
-                <Button transparent onPress={onNotification.bind(this)} rounded style={HomeStyle.style.botaoNovoBebe}>
+                {/* <Button transparent onPress={onNotification.bind(this)} rounded style={HomeStyle.style.botaoNovoBebe}>
                     <Text>
                         Notificar
                     </Text>
-                </Button>
+                </Button> */}
                 <Footer>
                     <FooterTab style={{ backgroundColor: Colors.headerBackgroud }} >
                         <Body>
