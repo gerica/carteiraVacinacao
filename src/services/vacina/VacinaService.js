@@ -109,8 +109,8 @@ export function criarVacina(dado) {
     return vacina;
 }
 
-export function recalcularDataVacinas(bebe) {
+export function recalcularDataVacinas(bebe, dataAplicacao) {
     const vacinasARealizar = getProximasARealizar(bebe);
-    const result = calcProximaData(vacinasARealizar, new Date());
+    const result = calcProximaData(vacinasARealizar, dataAplicacao);
     return result;
 }

@@ -10,7 +10,7 @@ const initialState = Map({
     bebe: null,
     vacina: null,
     rowLoading: offRowLoading,
-
+    dataAplicacao: null
 });
 
 // Actions
@@ -19,6 +19,7 @@ const ATTR_BEBE = 'VacinaState/ATTR_BEBE';
 const ATTR_VACINA = 'VacinaState/ATTR_VACINA';
 const ATTR_BEBE_VACINA_DATA_APLICACAO = 'VacinaState/ATTR_BEBE_VACINA_DATA_APLICACAO';
 const ATTR_ROW_LOADING = 'VacinaState/ATTR_ROWLOADING';
+const ATTR_DATA_APLICACAO = 'VacinaState/ATTR_DATA_APLICACAO';
 const offRowLoading = -1;
 
 // Action creators
@@ -49,16 +50,22 @@ export function attrRowLoading(value) {
         payload: value
     };
 }
-export function attrBebeVacinaDataAplicacao(bebe, value, rowID, recalcular) {
+export function attrDataAplicacao(value) {
+    return {
+        type: ATTR_DATA_APLICACAO,
+        payload: value
+    };
+}
+export function attrBebeVacinaDataAplicacao(bebe, value, rowID, recalcular, dataAplicacao) {
     return (dispatch) => {
         dispatch(attrRowLoading(rowID));
         dao.find().then((result) => {
             const findBebe = b => b.nome === bebe.nome;
             const antigoBebe = result.find(findBebe);
             if (antigoBebe) {
-                toggleVacinar(bebe, value, antigoBebe);
+                toggleVacinar(bebe, value, antigoBebe, dataAplicacao);
                 if (recalcular) {
-                    reacalcularDataVacinas(antigoBebe);
+                    reacalcularDataVacinas(antigoBebe, dataAplicacao);
                     // antigoBebe.vacinas = novaListaVacinas;
                 }
                 const novaLista = gerarNovaListaBebes(result, antigoBebe);
@@ -68,8 +75,8 @@ export function attrBebeVacinaDataAplicacao(bebe, value, rowID, recalcular) {
     };
 }
 
-function reacalcularDataVacinas(antigoBebe) {
-    const novaListaVacinas = vacinaService.recalcularDataVacinas(antigoBebe);
+function reacalcularDataVacinas(antigoBebe, dataAplicacao) {
+    const novaListaVacinas = vacinaService.recalcularDataVacinas(antigoBebe, dataAplicacao);
     novaListaVacinas.forEach(e => {
         const findIndexVacina = v => v.id === e.id;
         const indexVacina = antigoBebe.vacinas.findIndex(findIndexVacina);
@@ -78,13 +85,13 @@ function reacalcularDataVacinas(antigoBebe) {
     });
 }
 
-function toggleVacinar(bebe, value, antigoBebe) {
+function toggleVacinar(bebe, value, antigoBebe, dataAplicacao) {
     const findVacina = vacina => value.id === vacina.id;
     const vacinaAlterar = bebe.vacinas.find(findVacina);
 
     const indexVacina = bebe.vacinas.indexOf(vacinaAlterar);
     if (vacinaAlterar.dataAplicacao === undefined || vacinaAlterar.dataAplicacao === null) {
-        vacinaAlterar.dataAplicacao = new Date();
+        vacinaAlterar.dataAplicacao = dataAplicacao;
     } else {
         vacinaAlterar.dataAplicacao = null;
     }
@@ -123,6 +130,8 @@ export default function DashboradStateReducer(state = initialState, action) {
             return state.updateIn(['bebe', 'vacinas'], () => action.payload);
         case ATTR_ROW_LOADING:
             return state.update('rowLoading', () => action.payload);
+        case ATTR_DATA_APLICACAO:
+            return state.update('dataAplicacao', () => action.payload);
 
         default:
             return state;

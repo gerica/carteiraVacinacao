@@ -28,6 +28,11 @@ export default {
         menu: 'Configuração',
         title: 'Configuração do bebe',
         apagar: 'Apagar'
+    },
+    realizarVacina: {
+        title: 'Vacinar',
+        dataAplicacao: 'Data de Aplicação',
+        alertTitle: 'Confirmação',        
     }
 
 };

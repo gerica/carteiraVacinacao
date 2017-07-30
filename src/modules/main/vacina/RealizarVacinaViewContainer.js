@@ -9,8 +9,8 @@ import * as VacinaActions from './VacinaState';
 const mapStateToProps = (reducer) => {
     // const session = reducer.get('session').toJS();
     const state = reducer.get('vacinaState').toJS();
-    const { message, bebe, rowLoading } = state;
-    return { message, bebe, rowLoading };
+    const { message, bebe, rowLoading, dataAplicacao } = state;
+    return { message, bebe, rowLoading, dataAplicacao };
 };
 
 const init = dispatch => ({

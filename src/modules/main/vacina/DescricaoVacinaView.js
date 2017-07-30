@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import {
     Header, Icon, CardItem, Body, Card, Button,
     Title, Left, Footer, FooterTab
@@ -66,18 +66,5 @@ class VacinaView extends MainComponent {
         );
     }
 }
-
-
-const styles = StyleSheet.create({
-    /*
-     * Removed for brevity
-     */
-    separator: {
-        flex: 1,
-        height: StyleSheet.hairlineWidth,
-        margin: 1,
-        // backgroundColor: Colors.darkBlueGreyThree,
-    },
-});
 
 export default VacinaView;

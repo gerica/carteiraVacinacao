@@ -3,7 +3,7 @@ import { View, Text, ScrollView, DatePickerAndroid, DatePickerIOS, TouchableWith
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {
-    Button, Icon, Left, Container, Content, Header,
+    Button, Container, Content, Header,
     Body, Title, Form, Item, Input, Label,
     Grid, Col, ListItem, Right, Radio, Spinner
 } from 'native-base';
@@ -49,7 +49,7 @@ class NovoBebeView extends Component {
         try {
             const { action, year, month, day } = await DatePickerAndroid.open(options);
             if (action === DatePickerAndroid.dismissedAction) {
-                this.props.action.attrBebeDataNascimento(null);
+                this.props.actions.attrBebeDataNascimento(null);
             } else {
                 const date = new Date(year, month, day);
                 this.props.actions.attrBebeDataNascimento(date);

@@ -1,10 +1,22 @@
 import React from 'react';
-import { View, ListView, StyleSheet, ScrollView, Alert } from 'react-native';
+import {
+    View,
+    Text,
+    ListView,
+    StyleSheet,
+    ScrollView,
+    Alert,
+    DatePickerIOS,
+    Platform,
+    TouchableWithoutFeedback,
+    DatePickerAndroid
+} from 'react-native';
 import {
     Container, Content, Body, Button, Footer, FooterTab,
-    Left, Header, Icon, Title
+    Left, Header, Icon, Title, Item, Label
 } from 'native-base';
-import { ApplicationStyles } from '../../../components/Themes';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { ApplicationStyles, Colors } from '../../../components/Themes';
 import * as vacinaServices from '../../../services/vacina/VacinaService';
 import Row from './Row';
 import I18n from '../../../i18n/i18n';
@@ -14,6 +26,10 @@ class RealizarVacinaView extends MainComponent {
     static navigationOptions = {
         header: null,
     };
+
+    componentWillMount() {
+        this.props.actions.attrDataAplicacao(new Date());
+    }
 
     getProximasVacinas() {
         const proximaVacina = vacinaServices.getProximas(this.props.bebe);
@@ -43,7 +59,11 @@ class RealizarVacinaView extends MainComponent {
         }
     }
     onVacinar(rowData, rowID, recalcular) {
-        this.props.actions.attrBebeVacinaDataAplicacao(this.props.bebe, rowData, rowID, recalcular);
+        this.props.actions.attrBebeVacinaDataAplicacao(this.props.bebe,
+            rowData,
+            rowID,
+            recalcular,
+            this.props.dataAplicacao);
     }
     onDescricaoVacina(vacina) {
         const { navigate } = this.props.navigation;
@@ -78,11 +98,29 @@ class RealizarVacinaView extends MainComponent {
             />
         );
     }
+    showPicker = async (stateKey, options) => {
+        try {
+            const { action, year, month, day } = await DatePickerAndroid.open(options);
+            if (action !== DatePickerAndroid.dismissedAction) {
+                const date = new Date(year, month, day);
+                this.props.actions.attrDataAplicacao(date);
+            }
+        } catch ({ code, message }) {
+            console.warn(`Error in example '${stateKey}': `, message);
+        }
+    };
+    dataVacinacaoString() {
+        const { dataAplicacao } = this.props;
+        if (dataAplicacao) {
+            return dataAplicacao.toLocaleDateString();
+        }
+        return '';
+    }
     renderAlertConfirmar(rowData, rowID) {
         return (
             // Works on both iOS and Android
             Alert.alert(
-                'Confirmação',
+                I18n.t('realizarVacina.alertTitle'),
                 `Confirmar vacinação do bebe ${this.props.bebe.nome}?`,
                 [
                     { text: 'Cancelar' },
@@ -92,6 +130,24 @@ class RealizarVacinaView extends MainComponent {
                 ],
                 { cancelable: true }
             )
+        );
+    }
+    renderDatePiker() {
+        if (Platform.OS === 'ios') {
+            return (<DatePickerIOS
+                date={this.props.bebe.dataNascimento || new Date()}
+                mode="date"
+                timeZoneOffsetInMinutes={this.state.timeZoneOffsetInHours * 60}
+                onDateChange={(date) => this.props.actions.attrBebeDataNascimento(date)}
+            />);
+        }
+        return (
+            <TouchableWithoutFeedback onPress={this.showPicker.bind(this, 'preset', { date: this.props.dataAplicacao || new Date() })}>
+                <View style={[ApplicationStyles.style.screen.rightContainer, { paddingRight: '5%' }]}>
+                    <MaterialIcons name='today' size={30} color={Colors.belizeHole} />
+                    <Text>{this.dataVacinacaoString()}</Text>
+                </View>
+            </TouchableWithoutFeedback>
         );
     }
 
@@ -112,11 +168,17 @@ class RealizarVacinaView extends MainComponent {
                             </Button>
                         </Left>
                         <Body>
-                            <Title>{`${I18n.t('vacina.realizarVacinaTitle')}`}</Title>
+                            <Title>{`${I18n.t('realizarVacina.title')}`}</Title>
                         </Body>
                     </Header>
                     <Content style={{ padding: 1 }}>
-                        {this.renderCardsProximaVacinasList()}
+                        <Item label={I18n.t('realizarVacina.dataAplicacao')}>
+                            <Label>{I18n.t('realizarVacina.dataAplicacao')}</Label>
+                            {this.renderDatePiker()}
+                        </Item>
+                        <Item>
+                            {this.renderCardsProximaVacinasList()}
+                        </Item>
                     </Content>
                     <Footer>
                         <FooterTab style={this.getStyleBebe()} >
