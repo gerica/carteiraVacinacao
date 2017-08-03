@@ -1,4 +1,5 @@
 import PushNotification from 'react-native-push-notification';
+import moment from 'moment';
 
 PushNotification.configure({
 
@@ -51,7 +52,7 @@ export function onNotification() {
         smallIcon: 'ic_notification', // (optional) default: 'ic_notification' with fallback for 'ic_launcher'
         bigText: 'Não esqueça de levar seu bebe para vacinar.', // (optional) default: 'message' prop
         subText: 'A data da vacina esta chegando', // (optional) default: none
-        color: 'red', // (optional) default: system default
+        // color: 'red', // (optional) default: system default
         vibrate: true, // (optional) default: true
         vibration: 300, // vibration length in milliseconds, ignored if vibrate=false, default: 1000
         tag: 'some_tag', // (optional) add tag to message
@@ -67,4 +68,55 @@ export function onNotification() {
         // repeatType: 'week', // (Android only) Repeating interval. Could be one of `week`, `day`, `hour`, `minute, `time`. If specified as time, it should be accompanied by one more parameter 'repeatTime` which should the number of milliseconds between each interval
         actions: '["Ok"]',  // (Android only) See the doc for notification actions to know more
     });
-}   
+}
+export function onNotificationSchedule(tipo, dataPrevisao) {
+    // onCancelAllNotification();
+    let dataNotification;
+    // const dateOffset = (24 * 60 * 60 * 1000);
+    switch (tipo) {
+        case 1: {
+            // const dias = dateOffset * 2; //2 dias               
+            dataNotification = moment(dataPrevisao).subtract(2, 'd');
+            break;
+        }
+        case 2: {
+            // const dias = dateOffset * 5; //5 dias            
+            dataNotification = moment(dataPrevisao).subtract(5, 'd');
+            break;
+        }
+        case 3: {
+            // const dias = dateOffset * 7; //7 dias            
+            dataNotification = moment(dataPrevisao).subtract(7, 'd');
+            break;
+        }
+        default: {
+            // const dias = dateOffset * 2; //2 dias            
+            dataNotification = moment(dataPrevisao).subtract(2, 'd');
+            break;
+        }
+    }
+
+    // console.log(dataNotification.toDate());
+
+    PushNotification.localNotificationSchedule({
+        autoCancel: true, // (optional) default: true
+        largeIcon: 'ic_launcher', // (optional) default: 'ic_launcher'
+        smallIcon: 'ic_notification', // (optional) default: 'ic_notification' with fallback for 'ic_launcher'
+        bigText: 'Não esqueça de levar seu bebe para vacinar.', // (optional) default: 'message' prop
+        subText: 'A data da vacina esta chegando', // (optional) default: none        
+        vibrate: true, // (optional) default: true
+        vibration: 300, // vibration length in milliseconds, ignored if vibrate=false, default: 1000
+        tag: 'some_tag', // (optional) add tag to message
+        group: 'group', // (optional) add group to message
+        ongoing: false, // (optional) set whether this is an 'ongoing' notification
+
+        /* iOS and Android properties */
+        title: 'Lembrar de vacinar', // (optional, for iOS this is only used in apple watch, the title will be the app name on other iOS devices)
+        message: 'Lembre-se de vacinar seu bebe...', // (required)
+        playSound: false, // (optional) default: true
+        soundName: 'default', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)        
+        actions: '["Ok"]',  // (Android only) See the doc for notification actions to know more
+        // date: dataNotification
+        date: dataNotification.toDate()
+    });
+}

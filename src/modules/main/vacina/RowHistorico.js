@@ -11,7 +11,7 @@ const RowHistorico = (props) => (
             <CardItem>
                 <TouchableWithoutFeedback onPress={props.onPressDesc}>
                     <Left>
-                        <Thumbnail source={Imagens.getKitSaude3().getImgRandom()} style={ApplicationStyles.style.screen.circleLogo} />
+                        <Thumbnail source={Imagens.getKitSaude().getImgRandom()} style={ApplicationStyles.style.screen.circleLogo} />
                         <Body>
                             <Text>Vacina Aplicada</Text>
                             <Text>{props.nome}</Text>

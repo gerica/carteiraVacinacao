@@ -1,6 +1,7 @@
 import { Map, List } from 'immutable';
 import Bebe from '../../model/bebe.js';
 import BebeDao from '../../dao/BebeDao';
+import UtilsDao from '../../dao/UtilsDao';
 import * as vacinaService from '../../services/vacina/VacinaService';
 
 // Initial state
@@ -21,6 +22,7 @@ const ATTR_BEBE_DATA_NASCIMENTO = 'NovoBebeState/ATTR_BEBE_DATA_NASCIMENTO';
 const ATTR_BEBE_SEXO = 'NovoBebeState/ATTR_BEBE_SEXO';
 
 const dao = new BebeDao();
+const utilsDao = new UtilsDao();
 
 // Action creators
 export function init() {
@@ -98,10 +100,10 @@ export function save(bebe, navigate) {
             }
             const novoBebe = dao.criarNovoBebe(bebe);
             const vacinas = vacinaService.criarListaInicial();
+            utilsDao.save(novoBebe.nome, 3).then(() => vacinaService.proximaNotificacao(novoBebe, 3));
 
             novoBebe.vacinas = List(vacinaService.calcProximaData(vacinas, bebe.dataNascimento));
-            list.push(novoBebe);
-            console.log(list);
+            list.push(novoBebe);            
             dao.save(list).then(() => navigate('Home'));
         });
     };

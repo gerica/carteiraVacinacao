@@ -1,11 +1,12 @@
 import React, { PropTypes, Component } from 'react';
-import { View, StyleSheet, StatusBar, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, StatusBar, Image } from 'react-native';
 import NavigatorViewContainer from './navigator/NavigatorViewContainer';
 import * as snapshotUtil from '../utils/snapshot';
 import * as SessionStateActions from '../modules/session/SessionState';
-import { Colors } from '../components/Themes';
+
 import store from '../redux/store';
 import LogginService from '../services/LogginService';
+import Imagens from './../utils/image/Imagens';
 
 const log = new LogginService();
 
@@ -43,8 +44,8 @@ class AppView extends Component {
     log.logInfo('AppView - render()');
     if (!this.props.isReady) {
       return (
-        <View style={{ flex: 1 }}>
-          <ActivityIndicator style={styles.centered} />
+        <View style={styles.centered}>
+          <Image source={Imagens.logoSistema} />
         </View>
       );
     }
@@ -61,7 +62,9 @@ class AppView extends Component {
 const styles = StyleSheet.create({
   centered: {
     flex: 1,
-    alignSelf: 'center'
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 });
 

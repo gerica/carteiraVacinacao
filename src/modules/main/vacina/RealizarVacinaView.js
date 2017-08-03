@@ -154,23 +154,23 @@ class RealizarVacinaView extends MainComponent {
     render() {
         // console.log(this.props);
         return (
-            <ScrollView>
-                <Container style={ApplicationStyles.style.screen.mainContainer}>
-                    <Header style={this.getStyleBebe()}>
-                        <Left>
-                            <Button
-                                transparent
-                                onPress={() =>
-                                    this.props.navigation.goBack()
-                                }
-                            >
-                                <Icon name='ios-arrow-round-back' />
-                            </Button>
-                        </Left>
-                        <Body>
-                            <Title>{`${I18n.t('realizarVacina.title')}`}</Title>
-                        </Body>
-                    </Header>
+            <Container style={ApplicationStyles.style.screen.mainContainer}>
+                <Header style={this.getStyleBebe()}>
+                    <Left>
+                        <Button
+                            transparent
+                            onPress={() =>
+                                this.props.navigation.goBack()
+                            }
+                        >
+                            <Icon name='ios-arrow-round-back' />
+                        </Button>
+                    </Left>
+                    <Body>
+                        <Title>{`${I18n.t('realizarVacina.title')}`}</Title>
+                    </Body>
+                </Header>
+                <ScrollView>
                     <Content style={{ padding: 1 }}>
                         <Item label={I18n.t('realizarVacina.dataAplicacao')}>
                             <Label>{I18n.t('realizarVacina.dataAplicacao')}</Label>
@@ -180,15 +180,15 @@ class RealizarVacinaView extends MainComponent {
                             {this.renderCardsProximaVacinasList()}
                         </Item>
                     </Content>
-                    <Footer>
-                        <FooterTab style={this.getStyleBebe()} >
-                            <Body>
-                                <Title>{I18n.t('home.footer')}</Title>
-                            </Body>
-                        </FooterTab>
-                    </Footer>
-                </Container>
-            </ScrollView>
+                </ScrollView>
+                <Footer>
+                    <FooterTab style={this.getStyleBebe()} >
+                        <Body>
+                            <Title>{I18n.t('home.footer')}</Title>
+                        </Body>
+                    </FooterTab>
+                </Footer>
+            </Container>
         );
     }
 }

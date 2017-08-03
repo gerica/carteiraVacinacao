@@ -22,7 +22,7 @@ class Dashboard extends Component {
                     <Card>
                         <CardItem>
                             <Left>
-                                <Thumbnail source={Imagens.getKitSaude3().getForIndex(card.thumbnail)} style={ApplicationStyles.style.screen.circleLogo} />
+                                <Thumbnail source={Imagens.getKitSaude1().getForIndex(card.thumbnail)} style={ApplicationStyles.style.screen.circleLogo} />
                                 <Body>
                                     <Text>{card.title}</Text>
                                 </Body>
@@ -38,7 +38,7 @@ class Dashboard extends Component {
                             <Left>
                                 <Button transparent textStyle={{ color: '#87838B' }}>
                                     <Icon name="star" />
-                                    <Text>1,926 stars</Text>
+                                      {/* <Text>1,926 estrelas</Text>   */}
                                 </Button>
                             </Left>
                         </CardItem>

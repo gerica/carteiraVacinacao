@@ -47,7 +47,7 @@ export default class KitSaude3 {
         const i = Math.floor(Math.random() * (range + 1)) + min;
         return Object.values(this)[i];
     }
-    static getForIndex(i) {
-        return Object.values(this)[i];
+    static getForIndex(nomeImagen) {
+        return this[nomeImagen];
     }
 }

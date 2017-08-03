@@ -8,8 +8,8 @@ import * as ConfigBebeActions from './ConfigBebeState';
 const mapStateToProps = (reducer) => {
     // const session = reducer.get('session').toJS();
     const state = reducer.get('configBebeState').toJS();
-    const { message, bebe } = state;
-    return { message, bebe };
+    const { message, bebe, timeForNotification } = state;
+    return { message, bebe, timeForNotification };
 };
 
 const init = dispatch => ({

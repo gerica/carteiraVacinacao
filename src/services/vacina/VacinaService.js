@@ -1,6 +1,7 @@
 import moment from 'moment';
 import dados from './vacinas';
 import Vacina from '../../model/vacina';
+import { onNotificationSchedule } from '../../utils/Notification';
 
 const chaveVacinas = [
     'Ao nascer', '2 meses', '3 meses',
@@ -113,4 +114,11 @@ export function recalcularDataVacinas(bebe, dataAplicacao) {
     const vacinasARealizar = getProximasARealizar(bebe);
     const result = calcProximaData(vacinasARealizar, dataAplicacao);
     return result;
+}
+
+export function proximaNotificacao(bebe, value) {
+    const vacinasARealizar = getProximasARealizar(bebe);
+    if (vacinasARealizar && vacinasARealizar.length > 0) {
+        onNotificationSchedule(value, vacinasARealizar[0].dataPrevista);
+    }
 }
