@@ -69,6 +69,11 @@ export function onNotification() {
         actions: '["Ok"]',  // (Android only) See the doc for notification actions to know more
     });
 }
+/**
+ * 
+ * @param {* são 3 tipos} 1- dois dias, 2 - cinco dias, 3- sete dias tipo 
+ * @param {*} dataPrevisao 
+ */
 export function onNotificationSchedule(tipo, dataPrevisao) {
     // onCancelAllNotification();
     let dataNotification;
