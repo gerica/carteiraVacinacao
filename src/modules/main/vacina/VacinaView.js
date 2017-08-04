@@ -94,6 +94,7 @@ class VacinaView extends Component {
     }
     renderCardHistorico() {
         const historicoVacina = vacinaServices.getHistorico(this.props.bebe);
+        console.log(historicoVacina);
         if (historicoVacina.length === 0) {
             return;
         }

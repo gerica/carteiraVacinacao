@@ -49,12 +49,12 @@ export default {
         rigisted_success: 'User registed with success.'
     },
     home: {
-        title: 'Carteira de Saúde',
+        title: 'Carteira de Vacinação',
         novo: 'Novo Bebe',
         footer: 'App',
     },
     novoBebe: {
-        title: 'Carteira de Saúde',
+        title: 'Carteira de Vacinação',
         nome: 'Nome',
         sobrenome: 'Sobrenome',
         datanascimento: 'Data de Nascimento',

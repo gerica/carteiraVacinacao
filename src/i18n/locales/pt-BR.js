@@ -1,11 +1,11 @@
 export default {
     home: {
-        title: 'Carteira de Saúde',
+        title: 'Carteira de Vacinação',
         novo: 'Novo Bebe',
         footer: 'Saúde do bebe',
     },
     novoBebe: {
-        title: 'Carteira de Saúde',
+        title: 'Carteira de Vacinação',
         nome: 'Nome',
         sobrenome: 'Sobrenome',
         datanascimento: 'Data de Nascimento',

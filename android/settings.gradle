@@ -1,4 +1,4 @@
-rootProject.name = 'carteiraVacinacao'
+rootProject.name = 'Carteira de Vacinação'
 include ':react-native-push-notification'
 project(':react-native-push-notification').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-push-notification/android')
 include ':react-native-vector-icons'

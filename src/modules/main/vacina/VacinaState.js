@@ -65,7 +65,8 @@ export function attrBebeVacinaDataAplicacao(bebe, value, rowID, recalcular, data
             if (antigoBebe) {
                 toggleVacinar(bebe, value, antigoBebe, dataAplicacao);
                 if (recalcular) {
-                    reacalcularDataVacinas(antigoBebe, dataAplicacao);                                        
+                    // vacinaService.proximaNotificacao(3, antigoBebe);
+                    reacalcularDataVacinas(antigoBebe, dataAplicacao);
                 }
                 const novaLista = gerarNovaListaBebes(result, antigoBebe);
                 salvarNovaListaVacinas(dispatch, novaLista, antigoBebe);
@@ -100,9 +101,9 @@ function toggleVacinar(bebe, value, antigoBebe, dataAplicacao) {
 
 function salvarNovaListaVacinas(dispatch, novaLista, antigoBebe) {
     dao.save(novaLista).then(() => {
-        vacinaService.proximaNotificacao(3, antigoBebe);
         dispatch(attrBebe(antigoBebe));
         dispatch(attrRowLoading(offRowLoading));
+        vacinaService.proximaNotificacao(3, antigoBebe);
     }).catch(() => {
         dispatch(attrRowLoading(offRowLoading));
     });
